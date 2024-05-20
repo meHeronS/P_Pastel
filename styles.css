@@ -27,28 +27,6 @@ header h1 {
 #opcoesAcesso button:hover, #opcoesFuncionario button:hover, .btn-voltar:hover {
     background-color: #ff6600;
     color: white;
-}
-
-h2 {
-    background-color: #ff6600;
-    color: white;
-    padding: 10px;
-}
-
-#carrinho {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-#resumoPedido {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-button {
-    background-color: #ff6600;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -61,7 +39,6 @@ button:hover {
 
 input[type="text"], input[type="password"], input[type="checkbox"] {
     padding: 5px;
-    margin: 5px 0;
 }
 
 label {

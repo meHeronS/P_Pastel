@@ -1,21 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Inicializa a interface ao carregar a página
-    voltarTelaInicial();
-});
-
-function voltarTelaInicial() {
-    document.getElementById('acesso').style.display = 'block';
-    document.getElementById('acessoCliente').style.display = 'none';
-    document.getElementById('menuCliente').style.display = 'none';
-    document.getElementById('acessoFuncionario').style.display = 'none';
-    document.getElementById('painelFuncionario').style.display = 'none';
-    document.getElementById('filaPedidos').style.display = 'none';
-    document.getElementById('avaliacoes').style.display = 'none';
-    document.getElementById('gerenciarSabores').style.display = 'none';
-    document.getElementById('gerenciarFuncionarios').style.display = 'none';
-    document.getElementById('resumoPedido').style.display = 'none';
-}
-
 function mostrarAcessoCliente() {
     document.getElementById('acesso').style.display = 'none';
     document.getElementById('acessoCliente').style.display = 'block';
@@ -90,7 +72,6 @@ function finalizarPedido() {
         valor: valorTotal
     };
 
-    // Salva o pedido no banco de dados JSON
     fetch('data/pedidos.json')
         .then(response => response.json())
         .then(pedidos => {
@@ -139,16 +120,6 @@ function acessarSistemaFuncionario() {
             if (usuario) {
                 document.getElementById('acessoFuncionario').style.display = 'none';
                 document.getElementById('painelFuncionario').style.display = 'block';
-
-                let opcoes = document.getElementById('opcoesFuncionario');
-                opcoes.innerHTML = `
-                    <button onclick="verFilaPedidos()">Ver Fila de Pedidos</button>
-                    <button onclick="verAvaliacoes()">Ver Avaliações</button>
-                    <button onclick="gerenciarSabores()">Gerenciar Sabores</button>
-                `;
-                if (usuario.admin) {
-                    opcoes.innerHTML += `<button onclick="gerenciarFuncionarios()">Gerenciar Funcionários</button>`;
-                }
             } else {
                 alert('Nome ou senha incorretos.');
             }
@@ -157,9 +128,6 @@ function acessarSistemaFuncionario() {
 }
 
 function verFilaPedidos() {
-    document.getElementById('painelFuncionario').style.display = 'none';
-    document.getElementById('filaPedidos').style.display = 'block';
-
     fetch('data/pedidos.json')
         .then(response => response.json())
         .then(pedidos => {
@@ -223,9 +191,6 @@ function marcarPedidoComoFinalizado(numeroPedido) {
 }
 
 function verAvaliacoes() {
-    document.getElementById('painelFuncionario').style.display = 'none';
-    document.getElementById('avaliacoes').style.display = 'block';
-
     fetch('data/avaliacoes.json')
         .then(response => response.json())
         .then(avaliacoes => {
@@ -244,9 +209,6 @@ function verAvaliacoes() {
 }
 
 function gerenciarSabores() {
-    document.getElementById('painelFuncionario').style.display = 'none';
-    document.getElementById('gerenciarSabores').style.display = 'block';
-
     fetch('data/sabores.json')
         .then(response => response.json())
         .then(data => {
