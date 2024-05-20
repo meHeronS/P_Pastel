@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Venda de Pastéis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Sistema de Venda de Pastéis</h1>
+    </header>
+
+    <div id="acesso">
+        <h2>Bem-vindo ao Sistema</h2>
+        <button onclick="mostrarAcessoCliente()">Acessar como Cliente</button>
+        <button onclick="mostrarAcessoFuncionario()">Acessar como Funcionário</button>
+    </div>
+
+    <div id="acessoCliente" style="display: none;">
+        <h2>Acesso Cliente</h2>
+        <label for="nomeCliente">Nome:</label>
+        <input type="text" id="nomeCliente">
+        <button onclick="acessarMenu()">Ver Cardápio</button>
+    </div>
+
+    <div id="menuCliente" style="display: none;">
+        <h2>Cardápio</h2>
+        <div id="cardapio"></div>
+        <div id="carrinho">
+            <h3>Carrinho de Compras</h3>
+            <div id="itensCarrinho"></div>
+            <p id="totalCompra">Total: R$0.00</p>
+            <button onclick="finalizarPedido()">Finalizar Pedido</button>
+        </div>
+    </div>
+
+    <div id="acessoFuncionario" style="display: none;">
+        <h2>Acesso Funcionário</h2>
+        <label for="nomeFuncionario">Nome:</label>
+        <input type="text" id="nomeFuncionario">
+        <label for="senhaFuncionario">Senha:</label>
+        <input type="password" id="senhaFuncionario">
+        <button onclick="acessarSistemaFuncionario()">Acessar Sistema</button>
+    </div>
+
+    <div id="painelFuncionario" style="display: none;">
+        <h2>Painel do Funcionário</h2>
+        <div id="opcoesFuncionario"></div>
+    </div>
+
+    <div id="filaPedidos" style="display: none;">
+        <h2>Fila de Pedidos</h2>
+        <div id="listaPedidos"></div>
+        <button onclick="voltarPainelFuncionario()">Voltar</button>
+    </div>
+
+    <div id="avaliacoes" style="display: none;">
+        <h2>Avaliações dos Clientes</h2>
+        <div id="listaAvaliacoes"></div>
+        <button onclick="voltarPainelFuncionario()">Voltar</button>
+    </div>
+
+    <div id="gerenciarSabores" style="display: none;">
+        <h2>Gerenciar Sabores</h2>
+        <div id="listaSabores"></div>
+        <label for="novoSabor">Novo Sabor:</label>
+        <input type="text" id="novoSabor">
+        <button onclick="adicionarSabor()">Adicionar Sabor</button>
+        <button onclick="voltarPainelFuncionario()">Voltar</button>
+    </div>
+
+    <div id="gerenciarFuncionarios" style="display: none;">
+        <h2>Gerenciar Funcionários</h2>
+        <div id="listaFuncionarios"></div>
+        <label for="nomeNovoFuncionario">Nome:</label>
+        <input type="text" id="nomeNovoFuncionario">
+        <label for="senhaNovoFuncionario">Senha:</label>
+        <input type="password" id="senhaNovoFuncionario">
+        <label for="adminNovoFuncionario">Administrador:</label>
+        <input type="checkbox" id="adminNovoFuncionario">
+        <button onclick="adicionarFuncionario()">Adicionar Funcionário</button>
+        <button onclick="voltarPainelFuncionario()">Voltar</button>
+    </div>
+
+    <div id="resumoPedido" style="display: none;">
+        <h2>Resumo do Pedido</h2>
+        <p id="codigoPedido"></p>
+        <p id="valorPedido"></p>
+        <button onclick="voltarTelaInicial()">Voltar</button>
+    </div>
+
+    <!-- HTML permanece inalterado -->
+    <!-- Apenas certifique-se de que as divs estão conforme esperado -->
+
+    <!-- Resumo do Pedido -->
+    <div id="resumoPedido" style="display:none;">
+        <h2>Resumo do Pedido</h2>
+        <p id="codigoPedido"></p>
+        <p id="valorPedido"></p>
+        <button class="btn-voltar" onclick="voltarTelaInicial()">Voltar à Tela Inicial</button>
+    </div>
+
+    <!-- Adicione o botão de voltar nas outras seções -->
+    <button class="btn-voltar" onclick="voltarPainelFuncionario()">Voltar ao Painel</button>
+
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
