@@ -1,47 +1,47 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    padding: 20px;
 }
 
-header {
-    background-color: #ff6600;
-    color: white;
+h1 {
+    color: #333;
+}
+
+button {
+    margin: 10px;
     padding: 10px;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-}
-
-#opcoesAcesso button, #opcoesFuncionario button, .btn-voltar {
-    background-color: white;
-    border: 1px solid #ff6600;
-    color: #ff6600;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-#opcoesAcesso button:hover, #opcoesFuncionario button:hover, .btn-voltar:hover {
-    background-color: #ff6600;
+    background-color: #007BFF;
     color: white;
     border: none;
-    color: white;
-    padding: 10px 20px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #e65c00;
+    background-color: #0056b3;
 }
 
-input[type="text"], input[type="password"], input[type="checkbox"] {
-    padding: 5px;
+#cardapio, #carrinho {
+    margin-top: 20px;
 }
 
-label {
-    display: block;
-    margin: 5px 0;
+#itensCarrinho {
+    margin-top: 10px;
+}
+
+.item-carrinho {
+    margin-bottom: 10px;
+}
+
+#totalCompra {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.sabor-item, .pedido-item, .avaliacao-item, .funcionario-item {
+    background-color: white;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
 }

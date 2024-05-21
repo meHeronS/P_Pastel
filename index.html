@@ -1,112 +1,107 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Venda de Pastéis</title>
+    <title>Sistema de Pastelaria</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <header>
-        <h1>Sistema de Venda de Pastéis</h1>
-    </header>
-
+<body onload="iniciarSistema()">
     <div id="acesso">
-        <h2>Bem-vindo ao Sistema</h2>
-        <button onclick="mostrarAcessoCliente()">Acessar como Cliente</button>
-        <button onclick="mostrarAcessoFuncionario()">Acessar como Funcionário</button>
+        <h1>Acesso ao Sistema</h1>
+        <button onclick="AcessoCliente()">Acesso Cliente</button>
+        <button onclick="AcessoFuncionario()">Acesso Funcionário</button>
     </div>
 
-    <div id="acessoCliente" style="display: none;">
-        <h2>Acesso Cliente</h2>
-        <label for="nomeCliente">Nome:</label>
-        <input type="text" id="nomeCliente">
-        <button onclick="acessarMenu()">Ver Cardápio</button>
-    </div>
-
-    <div id="menuCliente" style="display: none;">
-        <h2>Cardápio</h2>
+    <div id="menuCliente" style="display:none;">
+        <h1>Bem-vindo, <span id="nomeClienteSpan"></span></h1>
+        <div>
+            <label for="nomeCliente">Nome:</label>
+            <input type="text" id="nomeCliente">
+        </div>
         <div id="cardapio"></div>
         <div id="carrinho">
-            <h3>Carrinho de Compras</h3>
+            <h2>Carrinho de Compras</h2>
             <div id="itensCarrinho"></div>
             <p id="totalCompra">Total: R$0.00</p>
             <button onclick="finalizarPedido()">Finalizar Pedido</button>
         </div>
     </div>
 
-    <div id="acessoFuncionario" style="display: none;">
-        <h2>Acesso Funcionário</h2>
-        <label for="nomeFuncionario">Nome:</label>
-        <input type="text" id="nomeFuncionario">
-        <label for="senhaFuncionario">Senha:</label>
-        <input type="password" id="senhaFuncionario">
-        <button onclick="acessarSistemaFuncionario()">Acessar Sistema</button>
+    <div id="resumoPedido" style="display:none;">
+        <h1>Resumo do Pedido</h1>
+        <p id="codigoPedido"></p>
+        <p id="valorPedido"></p>
+        <p id="confirmacaoPagamento"></p>
+        <p id="confirmacaoEntrega"></p>
+        <button onclick="voltarAcesso()">Voltar ao Início</button>
     </div>
 
-    <div id="painelFuncionario" style="display: none;">
-        <h2>Painel do Funcionário</h2>
-        <div id="opcoesFuncionario"></div>
+    <div id="acessoFuncionario" style="display:none;">
+        <h1>Acesso Funcionário</h1>
+        <div>
+            <label for="nomeFuncionario">Nome:</label>
+            <input type="text" id="nomeFuncionario">
+        </div>
+        <div>
+            <label for="senhaFuncionario">Senha:</label>
+            <input type="password" id="senhaFuncionario">
+        </div>
+        <button onclick="acessarSistemaFuncionario()">Acessar</button>
+        <button onclick="voltarAcesso()">Voltar</button>
     </div>
 
-    <div id="filaPedidos" style="display: none;">
-        <h2>Fila de Pedidos</h2>
+    <div id="painelFuncionario" style="display:none;">
+        <h1>Painel do Funcionário</h1>
+        <button onclick="verFilaPedidos()">Ver Fila de Pedidos</button>
+        <button onclick="verAvaliacoes()">Ver Avaliações</button>
+        <button onclick="gerenciarSabores()">Gerenciar Sabores</button>
+        <button onclick="gerenciarUsuarios()">Gerenciar Usuários</button>
+        <button onclick="voltarAcesso()">Voltar</button>
+    </div>
+
+    <div id="filaPedidos" style="display:none;">
+        <h1>Fila de Pedidos</h1>
         <div id="listaPedidos"></div>
         <button onclick="voltarPainelFuncionario()">Voltar</button>
     </div>
 
-    <div id="avaliacoes" style="display: none;">
-        <h2>Avaliações dos Clientes</h2>
+    <div id="avaliacoes" style="display:none;">
+        <h1>Avaliações dos Clientes</h1>
         <div id="listaAvaliacoes"></div>
         <button onclick="voltarPainelFuncionario()">Voltar</button>
     </div>
 
-    <div id="gerenciarSabores" style="display: none;">
-        <h2>Gerenciar Sabores</h2>
+    <div id="gerenciarSabores" style="display:none;">
+        <h1>Gerenciar Sabores</h1>
         <div id="listaSabores"></div>
-        <label for="novoSabor">Novo Sabor:</label>
-        <input type="text" id="novoSabor">
-        <button onclick="adicionarSabor()">Adicionar Sabor</button>
+        <div>
+            <h2>Adicionar Novo Sabor</h2>
+            <label for="novoSabor">Nome:</label>
+            <input type="text" id="novoSabor">
+            <label for="precoNovoSabor">Preço:</label>
+            <input type="number" id="precoNovoSabor">
+            <button onclick="adicionarSabor()">Adicionar</button>
+        </div>
         <button onclick="voltarPainelFuncionario()">Voltar</button>
     </div>
 
-    <div id="gerenciarFuncionarios" style="display: none;">
-        <h2>Gerenciar Funcionários</h2>
-        <div id="listaFuncionarios"></div>
-        <label for="nomeNovoFuncionario">Nome:</label>
-        <input type="text" id="nomeNovoFuncionario">
-        <label for="senhaNovoFuncionario">Senha:</label>
-        <input type="password" id="senhaNovoFuncionario">
-        <label for="adminNovoFuncionario">Administrador:</label>
-        <input type="checkbox" id="adminNovoFuncionario">
-        <button onclick="adicionarFuncionario()">Adicionar Funcionário</button>
+    <div id="gerenciarUsuarios" style="display:none;">
+        <h1>Gerenciar Usuários</h1>
+        <div id="listaUsuarios"></div>
+        <div>
+            <h2>Adicionar Novo Usuário</h2>
+            <label for="novoUsuario">Nome:</label>
+            <input type="text" id="novoUsuario">
+            <label for="senhaNovoUsuario">Senha:</label>
+            <input type="password" id="senhaNovoUsuario">
+            <label for="adminNovoUsuario">Administrador:</label>
+            <input type="checkbox" id="adminNovoUsuario">
+            <button onclick="adicionarUsuario()">Adicionar</button>
+        </div>
         <button onclick="voltarPainelFuncionario()">Voltar</button>
     </div>
-
-    <div id="resumoPedido" style="display: none;">
-        <h2>Resumo do Pedido</h2>
-        <p id="codigoPedido"></p>
-        <p id="valorPedido"></p>
-        <button onclick="voltarTelaInicial()">Voltar</button>
-    </div>
-
-    <!-- HTML permanece inalterado -->
-    <!-- Apenas certifique-se de que as divs estão conforme esperado -->
-
-    <!-- Resumo do Pedido -->
-    <div id="resumoPedido" style="display:none;">
-        <h2>Resumo do Pedido</h2>
-        <p id="codigoPedido"></p>
-        <p id="valorPedido"></p>
-        <button class="btn-voltar" onclick="voltarTelaInicial()">Voltar à Tela Inicial</button>
-    </div>
-
-    <!-- Adicione o botão de voltar nas outras seções -->
-    <button class="btn-voltar" onclick="voltarPainelFuncionario()">Voltar ao Painel</button>
-
 
     <script src="scripts.js"></script>
 </body>
-
 </html>
