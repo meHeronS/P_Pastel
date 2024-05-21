@@ -368,16 +368,3 @@ function voltarPainelFuncionario() {
     document.getElementById('gerenciarFuncionarios').style.display = 'none';
     document.getElementById('painelFuncionario').style.display = 'block';
 }
-
-function voltarTelaInicial() {
-    document.getElementById('acesso').style.display = 'block';
-    document.getElementById('acessoCliente').style.display = 'none';
-    document.getElementById('menuCliente').style.display = 'none';
-    document.getElementById('acessoFuncionario').style.display = 'none';
-    document.getElementById('painelFuncionario').style.display = 'none';
-    document.getElementById('filaPedidos').style.display = 'none';
-    document.getElementById('avaliacoes').style.display = 'none';
-    document.getElementById('gerenciarSabores').style.display = 'none';
-    document.getElementById('gerenciarFuncionarios').style.display = 'none';
-    document.getElementById('resumoPedido').style.display = 'none';
-}
