@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body onload="iniciarSistema()">
+    <!-- Tela de Acesso Inicial -->
     <div id="acesso">
         <h1>Acesso ao Sistema</h1>
-        <button onclick="AcessoCliente()">Acesso Cliente</button>
-        <button onclick="AcessoFuncionario()">Acesso Funcionário</button>
+        <button onclick="acessoCliente()">Acesso Cliente</button>
+        <button onclick="acessoUsuario()">Acesso Usuário</button>
     </div>
 
+    <!-- Tela de Menu do Cliente -->
     <div id="menuCliente" style="display:none;">
         <h1>Bem-vindo, <span id="nomeClienteSpan"></span></h1>
         <div>
@@ -25,9 +27,11 @@
             <div id="itensCarrinho"></div>
             <p id="totalCompra">Total: R$0.00</p>
             <button onclick="finalizarPedido()">Finalizar Pedido</button>
+            <button onclick="voltarAcesso()">Voltar</button>
         </div>
     </div>
 
+    <!-- Tela de Resumo do Pedido -->
     <div id="resumoPedido" style="display:none;">
         <h1>Resumo do Pedido</h1>
         <p id="codigoPedido"></p>
@@ -35,43 +39,50 @@
         <p id="confirmacaoPagamento"></p>
         <p id="confirmacaoEntrega"></p>
         <button onclick="voltarAcesso()">Voltar ao Início</button>
+        <p>Deseja deixar uma avaliação?</p>
+        <button onclick="avaliar(true)">Sim</button>
+        <button onclick="avaliar(false)">Não</button>
     </div>
 
-    <div id="acessoFuncionario" style="display:none;">
-        <h1>Acesso Funcionário</h1>
+    <!-- Tela de Acesso do Usuário -->
+    <div id="acessoUsuario" style="display:none;">
+        <h1>Acesso Usuário</h1>
         <div>
-            <label for="nomeFuncionario">Nome:</label>
-            <input type="text" id="nomeFuncionario">
+            <label for="nomeUsuario">Nome:</label>
+            <input type="text" id="nomeUsuario">
         </div>
         <div>
-            <label for="senhaFuncionario">Senha:</label>
-            <input type="password" id="senhaFuncionario">
+            <label for="senhaUsuario">Senha:</label>
+            <input type="password" id="senhaUsuario">
         </div>
-        <button onclick="acessarSistemaFuncionario()">Acessar</button>
+        <button onclick="acessarSistemaUsuario()">Acessar</button>
         <button onclick="voltarAcesso()">Voltar</button>
     </div>
 
-    <div id="painelFuncionario" style="display:none;">
-        <h1>Painel do Funcionário</h1>
+    <!-- Painel do Usuário -->
+    <div id="painelUsuario" style="display:none;">
+        <h1>Painel do Usuário</h1>
         <button onclick="verFilaPedidos()">Ver Fila de Pedidos</button>
         <button onclick="verAvaliacoes()">Ver Avaliações</button>
-        <button onclick="gerenciarSabores()">Gerenciar Sabores</button>
-        <button onclick="gerenciarUsuarios()">Gerenciar Usuários</button>
+        <div id="gerenciamentoAdicional"></div>
         <button onclick="voltarAcesso()">Voltar</button>
     </div>
 
+    <!-- Tela de Fila de Pedidos -->
     <div id="filaPedidos" style="display:none;">
         <h1>Fila de Pedidos</h1>
         <div id="listaPedidos"></div>
-        <button onclick="voltarPainelFuncionario()">Voltar</button>
+        <button onclick="voltarPainelUsuario()">Voltar</button>
     </div>
 
+    <!-- Tela de Avaliações -->
     <div id="avaliacoes" style="display:none;">
         <h1>Avaliações dos Clientes</h1>
         <div id="listaAvaliacoes"></div>
-        <button onclick="voltarPainelFuncionario()">Voltar</button>
+        <button onclick="voltarPainelUsuario()">Voltar</button>
     </div>
 
+    <!-- Tela de Gerenciamento de Sabores -->
     <div id="gerenciarSabores" style="display:none;">
         <h1>Gerenciar Sabores</h1>
         <div id="listaSabores"></div>
@@ -83,9 +94,10 @@
             <input type="number" id="precoNovoSabor">
             <button onclick="adicionarSabor()">Adicionar</button>
         </div>
-        <button onclick="voltarPainelFuncionario()">Voltar</button>
+        <button onclick="voltarPainelUsuario()">Voltar</button>
     </div>
 
+    <!-- Tela de Gerenciamento de Usuários -->
     <div id="gerenciarUsuarios" style="display:none;">
         <h1>Gerenciar Usuários</h1>
         <div id="listaUsuarios"></div>
@@ -99,9 +111,20 @@
             <input type="checkbox" id="adminNovoUsuario">
             <button onclick="adicionarUsuario()">Adicionar</button>
         </div>
-        <button onclick="voltarPainelFuncionario()">Voltar</button>
+        <button onclick="voltarPainelUsuario()">Voltar</button>
     </div>
 
-    <script src="scripts.js"></script>
+    <!-- Tela de Avaliação do Pedido -->
+    <div id="avaliarPedido" style="display:none;">
+        <h1>Avaliar Pedido</h1>
+        <label for="notaAvaliacao">Nota:</label>
+        <input type="number" id="notaAvaliacao" min="0" max="5">
+        <label for="comentarioAvaliacao">Comentário:</label>
+        <textarea id="comentarioAvaliacao" maxlength="100"></textarea>
+        <button onclick="salvarAvaliacao()">Enviar Avaliação</button>
+        <button onclick="voltarAcesso()">Voltar</button>
+    </div>
+
+    <script src="Scripts/scripts.js"></script>
 </body>
 </html>

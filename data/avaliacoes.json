@@ -1,3 +1,5 @@
 {
-    "avaliacoes": []
+    "avaliacoes": [
+        { "cliente": "João", "nota": 5, "comentario": "Excelente!" }
+    ]
 }

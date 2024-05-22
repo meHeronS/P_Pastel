@@ -1,19 +1,6 @@
 {
-    "funcionarios": [
-        {
-            "nome": "admin",
-            "senha": "admin",
-            "admin": true
-        },
-        {
-            "nome": "funcionario1",
-            "senha": "senha1",
-            "admin": false
-        },
-        {
-            "nome": "funcionario2",
-            "senha": "senha2",
-            "admin": false
-        }
+    "usuarios": [
+        { "nome": "admin", "senha": "admin", "admin": true },
+        { "nome": "usuario1", "senha": "senha1", "admin": false }
     ]
 }

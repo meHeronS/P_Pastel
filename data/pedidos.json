@@ -1,3 +1,15 @@
 {
-    "pedidos": []
+    "pedidos": [
+        {
+            "data": "2024-05-22",
+            "cliente": "João",
+            "numeroPedido": 123456789,
+            "produtos": [
+                { "nome": "Queijo", "preco": 5.0, "quantidade": 2 }
+            ],
+            "formaPagamento": "Pendente",
+            "valor": 10.0,
+            "finalizado": false
+        }
+    ]
 }

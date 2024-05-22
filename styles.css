@@ -1,47 +1,64 @@
+/* Estilos gerais para o sistema */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #fff8e1;
+    color: #333;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
 }
 
-h1 {
-    color: #333;
+h1, h2 {
+    color: #e65100;
 }
 
 button {
-    margin: 10px;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
+    background-color: #ff9800;
+    color: #fff;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #f57c00;
 }
 
-#cardapio, #carrinho {
-    margin-top: 20px;
-}
-
-#itensCarrinho {
-    margin-top: 10px;
-}
-
-.item-carrinho {
-    margin-bottom: 10px;
-}
-
-#totalCompra {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.sabor-item, .pedido-item, .avaliacao-item, .funcionario-item {
-    background-color: white;
-    padding: 10px;
-    margin: 10px 0;
+input, textarea {
+    padding: 5px;
+    margin: 5px;
     border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+label {
+    font-weight: bold;
+}
+
+#carrinho, #resumoPedido, #painelUsuario, #filaPedidos, #avaliacoes, #gerenciarSabores, #gerenciarUsuarios, #avaliarPedido {
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sabor-item, .carrinho-item, .pedido-item {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.sabor-item:last-child, .carrinho-item:last-child, .pedido-item:last-child {
+    border-bottom: none;
+}
+
+/* Esconder telas inicialmente */
+#menuCliente, #resumoPedido, #acessoUsuario, #painelUsuario, #filaPedidos, #avaliacoes, #gerenciarSabores, #gerenciarUsuarios, #avaliarPedido {
+    display: none;
 }
