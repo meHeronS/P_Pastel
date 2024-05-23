@@ -1,130 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Pastelaria</title>
+    <title>Sistema de Pedidos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body onload="iniciarSistema()">
-    <!-- Tela de Acesso Inicial -->
-    <div id="acesso">
-        <h1>Acesso ao Sistema</h1>
-        <button onclick="acessoCliente()">Acesso Cliente</button>
-        <button onclick="acessoUsuario()">Acesso Usuário</button>
-    </div>
-
-    <!-- Tela de Menu do Cliente -->
-    <div id="menuCliente" style="display:none;">
-        <h1>Bem-vindo, <span id="nomeClienteSpan"></span></h1>
-        <div>
-            <label for="nomeCliente">Nome:</label>
-            <input type="text" id="nomeCliente">
+<body>
+    <header>
+        <h1>Sistema de Pedidos</h1>
+    </header>
+    <main>
+        <!-- Tela Principal -->
+        <div id="telaPrincipal">
+            <h2>Bem-vindo!</h2>
+            <button class="btn" onclick="mostrarAcessoCliente()">Entrar como Cliente</button>
+            <button class="btn" onclick="mostrarAcessoUsuario()">Entrar como Funcionário/Usuário</button>
         </div>
-        <div id="cardapio"></div>
-        <div id="carrinho">
-            <h2>Carrinho de Compras</h2>
-            <div id="itensCarrinho"></div>
-            <p id="totalCompra">Total: R$0.00</p>
-            <button onclick="finalizarPedido()">Finalizar Pedido</button>
-            <button onclick="voltarAcesso()">Voltar</button>
+
+        <!-- Acesso do Cliente -->
+        <div id="acessoCliente" class="acesso hidden">
+            <h2>Acesso Cliente</h2>
+            <input type="text" id="clienteNome" placeholder="Seu Nome" class="input">
+            <button class="btn" onclick="acessarCliente()">Realizar Pedido</button>
+            <button class="btn" onclick="voltarTelaPrincipal()">Voltar</button>
         </div>
-    </div>
 
-    <!-- Tela de Resumo do Pedido -->
-    <div id="resumoPedido" style="display:none;">
-        <h1>Resumo do Pedido</h1>
-        <p id="codigoPedido"></p>
-        <p id="valorPedido"></p>
-        <p id="confirmacaoPagamento"></p>
-        <p id="confirmacaoEntrega"></p>
-        <button onclick="voltarAcesso()">Voltar ao Início</button>
-        <p>Deseja deixar uma avaliação?</p>
-        <button onclick="avaliar(true)">Sim</button>
-        <button onclick="avaliar(false)">Não</button>
-    </div>
-
-    <!-- Tela de Acesso do Usuário -->
-    <div id="acessoUsuario" style="display:none;">
-        <h1>Acesso Usuário</h1>
-        <div>
-            <label for="nomeUsuario">Nome:</label>
-            <input type="text" id="nomeUsuario">
+        <!-- Acesso do Usuário -->
+        <div id="acessoUsuario" class="acesso hidden">
+            <h2>Acesso Usuário</h2>
+            <input type="text" id="usuarioNome" placeholder="Nome de Usuário" class="input">
+            <input type="password" id="usuarioSenha" placeholder="Senha" class="input">
+            <button class="btn" onclick="acessarUsuario()">Acessar</button>
+            <button class="btn" onclick="voltarTelaPrincipal()">Voltar</button>
         </div>
-        <div>
-            <label for="senhaUsuario">Senha:</label>
-            <input type="password" id="senhaUsuario">
+
+        <!-- Painel do Cliente -->
+        <div id="pedidoCliente" class="hidden">
+            <h2>Escolha seus Sabores</h2>
+            <div id="sabores" class="sabores">
+                <!-- Os sabores serão carregados aqui -->
+            </div>
+            <div id="carrinho" class="carrinho">
+                <!-- O carrinho de compras será atualizado aqui -->
+            </div>
         </div>
-        <button onclick="acessarSistemaUsuario()">Acessar</button>
-        <button onclick="voltarAcesso()">Voltar</button>
-    </div>
 
-    <!-- Painel do Usuário -->
-    <div id="painelUsuario" style="display:none;">
-        <h1>Painel do Usuário</h1>
-        <button onclick="verFilaPedidos()">Ver Fila de Pedidos</button>
-        <button onclick="verAvaliacoes()">Ver Avaliações</button>
-        <div id="gerenciamentoAdicional"></div>
-        <button onclick="voltarAcesso()">Voltar</button>
-    </div>
-
-    <!-- Tela de Fila de Pedidos -->
-    <div id="filaPedidos" style="display:none;">
-        <h1>Fila de Pedidos</h1>
-        <div id="listaPedidos"></div>
-        <button onclick="voltarPainelUsuario()">Voltar</button>
-    </div>
-
-    <!-- Tela de Avaliações -->
-    <div id="avaliacoes" style="display:none;">
-        <h1>Avaliações dos Clientes</h1>
-        <div id="listaAvaliacoes"></div>
-        <button onclick="voltarPainelUsuario()">Voltar</button>
-    </div>
-
-    <!-- Tela de Gerenciamento de Sabores -->
-    <div id="gerenciarSabores" style="display:none;">
-        <h1>Gerenciar Sabores</h1>
-        <div id="listaSabores"></div>
-        <div>
-            <h2>Adicionar Novo Sabor</h2>
-            <label for="novoSabor">Nome:</label>
-            <input type="text" id="novoSabor">
-            <label for="precoNovoSabor">Preço:</label>
-            <input type="number" id="precoNovoSabor">
-            <button onclick="adicionarSabor()">Adicionar</button>
+        <!-- Resumo do Pedido -->
+        <div id="resumoPedido" class="hidden">
+            <h2>Resumo do Pedido</h2>
+            <p id="resumoPedidoNome"></p>
+            <p id="resumoPedidoNumero"></p>
+            <p id="resumoPedidoValor"></p>
+            <p>Por favor, dirija-se ao caixa para pagamento.</p>
+            <p>Deseja deixar uma avaliação?</p>
+            <button class="btn" onclick="confirmarAvaliacao(true)">Sim</button>
+            <button class="btn" onclick="confirmarAvaliacao(false)">Não</button>
         </div>
-        <button onclick="voltarPainelUsuario()">Voltar</button>
-    </div>
 
-    <!-- Tela de Gerenciamento de Usuários -->
-    <div id="gerenciarUsuarios" style="display:none;">
-        <h1>Gerenciar Usuários</h1>
-        <div id="listaUsuarios"></div>
-        <div>
-            <h2>Adicionar Novo Usuário</h2>
-            <label for="novoUsuario">Nome:</label>
-            <input type="text" id="novoUsuario">
-            <label for="senhaNovoUsuario">Senha:</label>
-            <input type="password" id="senhaNovoUsuario">
-            <label for="adminNovoUsuario">Administrador:</label>
-            <input type="checkbox" id="adminNovoUsuario">
-            <button onclick="adicionarUsuario()">Adicionar</button>
+        <!-- Avaliação do Pedido -->
+        <div id="avaliarPedido" class="hidden">
+            <h2>Avalie seu Pedido</h2>
+            <form onsubmit="salvarAvaliacao(); return false;">
+                <label>Nota:
+                    <input type="radio" name="notaAvaliacao" value="1"> 1
+                    <input type="radio" name="notaAvaliacao" value="2"> 2
+                    <input type="radio" name="notaAvaliacao" value="3"> 3
+                    <input type="radio" name="notaAvaliacao" value="4"> 4
+                    <input type="radio" name="notaAvaliacao" value="5"> 5
+                </label>
+                <textarea id="comentarioAvaliacao" placeholder="Deixe seu comentário (opcional)" maxlength="100"></textarea>
+                <button class="btn" type="submit">Enviar Avaliação</button>
+            </form>
         </div>
-        <button onclick="voltarPainelUsuario()">Voltar</button>
-    </div>
 
-    <!-- Tela de Avaliação do Pedido -->
-    <div id="avaliarPedido" style="display:none;">
-        <h1>Avaliar Pedido</h1>
-        <label for="notaAvaliacao">Nota:</label>
-        <input type="number" id="notaAvaliacao" min="0" max="5">
-        <label for="comentarioAvaliacao">Comentário:</label>
-        <textarea id="comentarioAvaliacao" maxlength="100"></textarea>
-        <button onclick="salvarAvaliacao()">Enviar Avaliação</button>
-        <button onclick="voltarAcesso()">Voltar</button>
-    </div>
+        <!-- Painel do Administrador -->
+        <div id="painelAdmin" class="hidden">
+            <h2>Painel Administrativo</h2>
+            <button class="btn" onclick="gerenciarSabores()">Gerenciar Sabores</button>
+            <button class="btn" onclick="gerenciarUsuarios()">Gerenciar Usuários</button>
+            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
+            <button class="btn" onclick="visualizarAvaliacoes()">Visualizar Avaliações</button>
+            <button class="btn" onclick="voltarTelaPrincipal()">Voltar para Tela Principal</button>
+        </div>
 
-    <script src="Scripts/scripts.js"></script>
+        <!-- Painel do Usuário -->
+        <div id="painelUsuario" class="hidden">
+            <h2>Painel do Usuário</h2>
+            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
+            <button class="btn" onclick="voltarTelaPrincipal()">Voltar para Tela Principal</button>
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 Sistema de Pedidos. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Incluindo scripts modularizados -->
+    <script src="scripts/scriptAcesso.js"></script>
+    <script src="scripts/scriptPedidos.js"></script>
+    <script src="scripts/scriptJson.js"></script>
+    <script src="scripts/scriptPrincipal.js"></script>
 </body>
 </html>

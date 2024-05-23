@@ -1,64 +1,87 @@
-/* Estilos gerais para o sistema */
+/* styles.css */
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff8e1;
-    color: #333;
+    background-color: #f7f7f7;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
+}
+
+header {
+    background-color: #FFA500; /* Laranja */
+    color: black;
+    padding: 1em 0;
+    text-align: center;
+}
+
+main {
+    padding: 2em;
+}
+
+.hidden {
+    display: none;
 }
 
 h1, h2 {
-    color: #e65100;
+    color: #333;
 }
 
-button {
-    background-color: #ff9800;
-    color: #fff;
-    border: none;
+.btn {
+    display: inline-block;
     padding: 10px 20px;
+    margin: 10px;
+    color: white;
+    background-color: #FFA500; /* Laranja */
+    border: none;
     cursor: pointer;
-    margin: 5px;
     border-radius: 5px;
 }
 
-button:hover {
-    background-color: #f57c00;
+.btn:hover {
+    background-color: #FF8C00; /* Laranja Escuro */
 }
 
-input, textarea {
-    padding: 5px;
-    margin: 5px;
+.acesso {
+    text-align: center;
+}
+
+.input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+    max-width: 300px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-label {
+.quantidade {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.carrinho-item {
+    background-color: #FFD700; /* Amarelo Ouro */
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.carrinho-total {
     font-weight: bold;
+    text-align: right;
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
 }
 
-#carrinho, #resumoPedido, #painelUsuario, #filaPedidos, #avaliacoes, #gerenciarSabores, #gerenciarUsuarios, #avaliarPedido {
-    background-color: #ffffff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.sabor-item, .carrinho-item, .pedido-item {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-}
-
-.sabor-item:last-child, .carrinho-item:last-child, .pedido-item:last-child {
-    border-bottom: none;
-}
-
-/* Esconder telas inicialmente */
-#menuCliente, #resumoPedido, #acessoUsuario, #painelUsuario, #filaPedidos, #avaliacoes, #gerenciarSabores, #gerenciarUsuarios, #avaliarPedido {
-    display: none;
+footer {
+    background-color: #FFA500; /* Laranja */
+    color: black;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
