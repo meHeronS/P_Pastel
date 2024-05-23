@@ -3,102 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Pedidos</title>
+    <title>Pasteis do SI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Cabeçalho do site com o nome estilizado da loja -->
     <header>
-        <h1>Sistema de Pedidos</h1>
+        <h1>Pasteis do SI</h1>
     </header>
     <main>
-        <!-- Tela Principal -->
-        <div id="telaPrincipal">
-            <h2>Bem-vindo!</h2>
-            <button class="btn" onclick="mostrarAcessoCliente()">Entrar como Cliente</button>
-            <button class="btn" onclick="mostrarAcessoUsuario()">Entrar como Funcionário/Usuário</button>
-        </div>
+        <!-- Seção inicial para escolher o tipo de acesso -->
+        <section id="escolherAcesso">
+            <h2>Escolha o Tipo de Acesso</h2>
+            <!-- Botão para acessar como cliente -->
+            <button id="escolherClienteBtn">Cliente</button>
+            <!-- Botão para acessar como funcionário -->
+            <button id="escolherFuncionarioBtn">Funcionário</button>
+        </section>
 
-        <!-- Acesso do Cliente -->
-        <div id="acessoCliente" class="acesso hidden">
+        <!-- Seção de acesso do cliente (oculto inicialmente) -->
+        <section id="acessoCliente" style="display: none;">
             <h2>Acesso Cliente</h2>
-            <input type="text" id="clienteNome" placeholder="Seu Nome" class="input">
-            <button class="btn" onclick="acessarCliente()">Realizar Pedido</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar</button>
-        </div>
+            <!-- Campo para o cliente digitar o nome -->
+            <input type="text" id="nomeCliente" placeholder="Digite seu nome">
+            <!-- Botão para o cliente entrar -->
+            <button id="clienteBtn">Entrar</button>
+        </section>
 
-        <!-- Acesso do Usuário -->
-        <div id="acessoUsuario" class="acesso hidden">
-            <h2>Acesso Usuário</h2>
-            <input type="text" id="usuarioNome" placeholder="Nome de Usuário" class="input">
-            <input type="password" id="usuarioSenha" placeholder="Senha" class="input">
-            <button class="btn" onclick="acessarUsuario()">Acessar</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar</button>
-        </div>
+        <!-- Seção de pedidos do cliente (oculto inicialmente) -->
+        <section id="pedidoCliente" style="display: none;">
+            <!-- Nome do cliente será exibido aqui -->
+            <h2 id="clienteNome"></h2>
+            <!-- Subtítulo para Pasteis -->
+            <h3>Pasteis</h3>
+            <!-- Subtítulo para escolha dos sabores -->
+            <h3>Escolha seus sabores</h3>
+            <!-- Div para listar os sabores disponíveis -->
+            <div id="sabores"></div>
+            <!-- Div para exibir itens no carrinho -->
+            <div id="carrinho"></div>
+            <!-- Botão para finalizar o pedido -->
+            <button id="finalizarBtn">Finalizar Pedido</button>
+        </section>
 
-        <!-- Painel do Cliente -->
-        <div id="pedidoCliente" class="hidden">
-            <h2>Escolha seus Sabores</h2>
-            <div id="sabores" class="sabores">
-                <!-- Os sabores serão carregados aqui -->
-            </div>
-            <div id="carrinho" class="carrinho">
-                <!-- O carrinho de compras será atualizado aqui -->
-            </div>
-        </div>
-
-        <!-- Resumo do Pedido -->
-        <div id="resumoPedido" class="hidden">
+        <!-- Seção de resumo do pedido (oculto inicialmente) -->
+        <section id="resumoPedido" style="display: none;">
             <h2>Resumo do Pedido</h2>
-            <p id="resumoPedidoNome"></p>
-            <p id="resumoPedidoNumero"></p>
-            <p id="resumoPedidoValor"></p>
-            <p>Por favor, dirija-se ao caixa para pagamento.</p>
-            <p>Deseja deixar uma avaliação?</p>
-            <button class="btn" onclick="confirmarAvaliacao(true)">Sim</button>
-            <button class="btn" onclick="confirmarAvaliacao(false)">Não</button>
-        </div>
+            <!-- Nome do cliente -->
+            <p id="resumoNome"></p>
+            <!-- Número do pedido -->
+            <p id="resumoNumero"></p>
+            <!-- Valor total do pedido -->
+            <p id="resumoTotal"></p>
+            <!-- Mensagem para o cliente se dirigir ao caixa -->
+            <p>Por favor, dirija-se ao caixa para realizar o pagamento.</p>
+            <!-- Botão para voltar à tela inicial -->
+            <button id="voltarBtnResumo">Voltar</button>
+        </section>
 
-        <!-- Avaliação do Pedido -->
-        <div id="avaliarPedido" class="hidden">
-            <h2>Avalie seu Pedido</h2>
-            <form onsubmit="salvarAvaliacao(); return false;">
-                <label>Nota:
-                    <input type="radio" name="notaAvaliacao" value="1"> 1
-                    <input type="radio" name="notaAvaliacao" value="2"> 2
-                    <input type="radio" name="notaAvaliacao" value="3"> 3
-                    <input type="radio" name="notaAvaliacao" value="4"> 4
-                    <input type="radio" name="notaAvaliacao" value="5"> 5
-                </label>
-                <textarea id="comentarioAvaliacao" placeholder="Deixe seu comentário (opcional)" maxlength="100"></textarea>
-                <button class="btn" type="submit">Enviar Avaliação</button>
-            </form>
-        </div>
+        <!-- Seção de acesso do funcionário (oculto inicialmente) -->
+        <section id="acessoFuncionario" style="display: none;">
+            <h2>Acesso Funcionário</h2>
+            <!-- Campo para o funcionário digitar o nome de usuário -->
+            <input type="text" id="nomeUsuario" placeholder="Nome de usuário">
+            <!-- Campo para o funcionário digitar a senha -->
+            <input type="password" id="senhaUsuario" placeholder="Senha">
+            <!-- Botão para o funcionário entrar -->
+            <button id="funcionarioBtn">Entrar</button>
+        </section>
 
-        <!-- Painel do Administrador -->
-        <div id="painelAdmin" class="hidden">
+        <!-- Seção do painel administrativo (oculto inicialmente) -->
+        <section id="painelFuncionario" style="display: none;">
             <h2>Painel Administrativo</h2>
-            <button class="btn" onclick="gerenciarSabores()">Gerenciar Sabores</button>
-            <button class="btn" onclick="gerenciarUsuarios()">Gerenciar Usuários</button>
-            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
-            <button class="btn" onclick="visualizarAvaliacoes()">Visualizar Avaliações</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar para Tela Principal</button>
-        </div>
-
-        <!-- Painel do Usuário -->
-        <div id="painelUsuario" class="hidden">
-            <h2>Painel do Usuário</h2>
-            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar para Tela Principal</button>
-        </div>
+            <!-- Botões de gerenciamento para o administrador -->
+            <button id="gerenciarSaboresBtn" style="display: none;">Gerenciar Sabores</button>
+            <button id="gerenciarUsuariosBtn" style="display: none;">Gerenciar Usuários</button>
+            <button id="visualizarPedidosBtn">Visualizar Pedidos</button>
+            <button id="visualizarAvaliacoesBtn">Visualizar Avaliações</button>
+            <!-- Botão para voltar para a tela principal -->
+            <button id="voltarBtnPainel">Voltar</button>
+        </section>
     </main>
     <footer>
-        <p>© 2024 Sistema de Pedidos. Todos os direitos reservados.</p>
+        <p>&copy; 2024 Pasteis do SI</p>
     </footer>
-
-    <!-- Incluindo scripts modularizados -->
+    <!-- Scripts JavaScript para funcionalidades -->
     <script src="scripts/scriptAcesso.js"></script>
-    <script src="scripts/scriptPedidos.js"></script>
     <script src="scripts/scriptJson.js"></script>
+    <script src="scripts/scriptPedidos.js"></script>
     <script src="scripts/scriptPrincipal.js"></script>
 </body>
 </html>

@@ -1,87 +1,67 @@
-/* styles.css */
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
     margin: 0;
     padding: 0;
+    background-color: #fff;
+    color: #333;
 }
 
 header {
     background-color: #FFA500; /* Laranja */
-    color: black;
-    padding: 1em 0;
+    color: #fff;
     text-align: center;
+    padding: 1em 0;
 }
 
 main {
-    padding: 2em;
+    padding: 20px;
 }
 
-.hidden {
-    display: none;
-}
-
-h1, h2 {
-    color: #333;
-}
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px;
-    color: white;
+button {
     background-color: #FFA500; /* Laranja */
     border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0;
     cursor: pointer;
     border-radius: 5px;
 }
 
-.btn:hover {
+button:hover {
     background-color: #FF8C00; /* Laranja Escuro */
 }
 
-.acesso {
-    text-align: center;
-}
-
-.input {
-    display: block;
-    margin: 10px auto;
+input[type="text"], input[type="password"], input[type="number"] {
     padding: 10px;
-    width: 80%;
-    max-width: 300px;
-    border: 1px solid #ccc;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 2px solid #FFA500;
     border-radius: 5px;
-}
-
-.quantidade {
-    width: 50px;
-    margin-right: 10px;
 }
 
 .carrinho-item {
-    background-color: #FFD700; /* Amarelo Ouro */
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .carrinho-total {
     font-weight: bold;
     text-align: right;
-    padding: 10px;
     margin-top: 10px;
-    border-top: 1px solid #ddd;
 }
 
 footer {
     background-color: #FFA500; /* Laranja */
-    color: black;
+    color: white;
     text-align: center;
-    padding: 1em 0;
+    padding: 10px 0;
     position: fixed;
-    bottom: 0;
     width: 100%;
+    bottom: 0;
 }
