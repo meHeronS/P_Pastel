@@ -1,131 +1,124 @@
 // scriptPedidos.js
 
-// Função para adicionar itens ao carrinho
-function adicionarAoCarrinho(nome, preco) {
-    const quantidade = document.getElementById(`quantidade-${nome}`).value;
-    if (quantidade > 0) {
-        const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-        const itemExistente = carrinho.find(item => item.nome === nome);
-        if (itemExistente) {
-            itemExistente.quantidade += parseInt(quantidade);
-        } else {
-            carrinho.push({ nome, preco, quantidade: parseInt(quantidade) });
-        }
-        localStorage.setItem('carrinho', JSON.stringify(carrinho));
-        atualizarCarrinho();
+// Variáveis globais
+let carrinho = [];
+let numeroPedido = 1;
+
+// Função para exibir os sabores disponíveis
+function exibirSabores(sabores) {
+    const saboresDiv = document.getElementById('sabores');
+    saboresDiv.innerHTML = '';
+    sabores.forEach(sabor => {
+        const saborDiv = document.createElement('div');
+        saborDiv.classList.add('sabor');
+
+        const saborNome = document.createElement('span');
+        saborNome.textContent = sabor.nome;
+
+        const saborPreco = document.createElement('span');
+        saborPreco.textContent = `R$${sabor.preco.toFixed(2)}`;
+
+        const quantidadeInput = document.createElement('input');
+        quantidadeInput.type = 'number';
+        quantidadeInput.value = 1;
+        quantidadeInput.min = 1;
+
+        const adicionarBtn = document.createElement('button');
+        adicionarBtn.textContent = 'Adicionar';
+        adicionarBtn.addEventListener('click', () => adicionarAoCarrinho(sabor, quantidadeInput.value));
+
+        saborDiv.appendChild(saborNome);
+        saborDiv.appendChild(saborPreco);
+        saborDiv.appendChild(quantidadeInput);
+        saborDiv.appendChild(adicionarBtn);
+        saboresDiv.appendChild(saborDiv);
+    });
+}
+
+// Função para adicionar item ao carrinho
+function adicionarAoCarrinho(sabor, quantidade) {
+    const itemExistente = carrinho.find(item => item.sabor === sabor.nome);
+    if (itemExistente) {
+        itemExistente.quantidade += parseInt(quantidade);
     } else {
-        alert('Quantidade inválida.');
+        carrinho.push({ sabor: sabor.nome, quantidade: parseInt(quantidade), preco: sabor.preco });
+    }
+    atualizarCarrinho();
+}
+
+// Função para remover item do carrinho
+function removerDoCarrinho(saborNome) {
+    carrinho = carrinho.filter(item => item.sabor !== saborNome);
+    atualizarCarrinho();
+}
+
+// Função para atualizar quantidade no carrinho
+function atualizarQuantidade(saborNome, novaQuantidade) {
+    const item = carrinho.find(item => item.sabor === saborNome);
+    if (item) {
+        item.quantidade = parseInt(novaQuantidade);
+        atualizarCarrinho();
     }
 }
 
-// Função para atualizar o carrinho de compras
+// Função para atualizar a exibição do carrinho
 function atualizarCarrinho() {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     const carrinhoDiv = document.getElementById('carrinho');
     carrinhoDiv.innerHTML = '';
 
-    let total = 0;
     carrinho.forEach(item => {
-        const itemTotal = item.preco * item.quantidade;
-        total += itemTotal;
-
         const itemDiv = document.createElement('div');
-        itemDiv.className = 'carrinho-item';
-        itemDiv.innerHTML = `
-            <span>${item.nome}</span>
-            <span>${item.quantidade} x R$${item.preco.toFixed(2)}</span>
-            <span>R$${itemTotal.toFixed(2)}</span>
-            <button onclick="editarQuantidade('${item.nome}', -1)">-</button>
-            <button onclick="editarQuantidade('${item.nome}', 1)">+</button>
-            <button onclick="removerDoCarrinho('${item.nome}')">Remover</button>
-        `;
+        itemDiv.classList.add('item-carrinho');
+
+        const itemNome = document.createElement('span');
+        itemNome.textContent = item.sabor;
+
+        const itemQuantidade = document.createElement('input');
+        itemQuantidade.type = 'number';
+        itemQuantidade.value = item.quantidade;
+        itemQuantidade.min = 1;
+        itemQuantidade.addEventListener('change', () => atualizarQuantidade(item.sabor, itemQuantidade.value));
+
+        const itemPreco = document.createElement('span');
+        itemPreco.textContent = `R$${(item.preco * item.quantidade).toFixed(2)}`;
+
+        const removerBtn = document.createElement('button');
+        removerBtn.textContent = 'Remover';
+        removerBtn.addEventListener('click', () => removerDoCarrinho(item.sabor));
+
+        itemDiv.appendChild(itemNome);
+        itemDiv.appendChild(itemQuantidade);
+        itemDiv.appendChild(itemPreco);
+        itemDiv.appendChild(removerBtn);
         carrinhoDiv.appendChild(itemDiv);
     });
-
-    const totalDiv = document.createElement('div');
-    totalDiv.className = 'carrinho-total';
-    totalDiv.innerHTML = `Total: R$${total.toFixed(2)}`;
-    carrinhoDiv.appendChild(totalDiv);
-}
-
-// Função para editar a quantidade no carrinho
-function editarQuantidade(nome, delta) {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const item = carrinho.find(item => item.nome === nome);
-    if (item) {
-        item.quantidade += delta;
-        if (item.quantidade <= 0) {
-            removerDoCarrinho(nome);
-        } else {
-            localStorage.setItem('carrinho', JSON.stringify(carrinho));
-            atualizarCarrinho();
-        }
-    }
-}
-
-// Função para remover itens do carrinho
-function removerDoCarrinho(nome) {
-    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    carrinho = carrinho.filter(item => item.nome !== nome);
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    atualizarCarrinho();
 }
 
 // Função para finalizar o pedido
 function finalizarPedido() {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    if (carrinho.length === 0) {
-        alert('O carrinho está vazio.');
+    const nomeCliente = document.getElementById('nomeCliente').value;
+    if (!nomeCliente) {
+        alert('Por favor, digite seu nome.');
         return;
     }
 
-    fetch('data/pedidos.json')
-        .then(response => response.json())
-        .then(data => {
-            const pedidos = data.pedidos;
-            const numeroPedido = String(pedidos.length + 1).padStart(7, '0');
-            const nomeCliente = localStorage.getItem('nomeCliente');
-            const valorTotal = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
-            
-            const novoPedido = {
-                data: new Date().toLocaleString(),
-                cliente: nomeCliente,
-                numeroPedido,
-                produtos: carrinho,
-                valor: valorTotal,
-                status: 'Pendente'
-            };
+    const valorTotal = carrinho.reduce((total, item) => total + item.quantidade * item.preco, 0);
+    const pedido = {
+        nomeCliente,
+        numeroPedido: numeroPedido++,
+        valorTotal,
+        itens: carrinho
+    };
 
-            pedidos.push(novoPedido);
-            localStorage.setItem('pedidos', JSON.stringify(pedidos));
+    salvarJson('data/pedidos.json', pedido);
 
-            // Exibir resumo do pedido
-            document.getElementById('pedidoCliente').style.display = 'none';
-            document.getElementById('resumoPedido').style.display = 'block';
-            document.getElementById('resumoNome').innerText = `Cliente: ${nomeCliente}`;
-            document.getElementById('resumoNumero').innerText = `Pedido Nº: ${numeroPedido}`;
-            document.getElementById('resumoTotal').innerText = `Total: R$${valorTotal.toFixed(2)}`;
-        })
-        .catch(error => console.error('Erro ao finalizar pedido:', error));
+    document.getElementById('resumoNome').textContent = `Nome: ${nomeCliente}`;
+    document.getElementById('resumoNumero').textContent = `Número do Pedido: ${pedido.numeroPedido}`;
+    document.getElementById('resumoTotal').textContent = `Valor Total: R$${valorTotal.toFixed(2)}`;
+
+    document.getElementById('pedidoCliente').style.display = 'none';
+    document.getElementById('resumoPedido').style.display = 'block';
 }
 
-// Carregar os sabores na página de pedidos
-function carregarSabores() {
-    fetch('data/sabores.json')
-        .then(response => response.json())
-        .then(data => {
-            const saboresDiv = document.getElementById('sabores');
-            saboresDiv.innerHTML = '';
-            data.sabores.forEach(sabor => {
-                const saborDiv = document.createElement('div');
-                saborDiv.className = 'sabor-item';
-                saborDiv.innerHTML = `
-                    <span>${sabor.nome} - R$${sabor.preco.toFixed(2)}</span>
-                    <input type="number" id="quantidade-${sabor.nome}" value="1" min="1" max="99" />
-                    <button onclick="adicionarAoCarrinho('${sabor.nome}', ${sabor.preco})">Adicionar</button>
-                `;
-                saboresDiv.appendChild(saborDiv);
-            });
-        })
-        .catch(error => console.error('Erro ao carregar sabores:', error));
-}
+// Evento do botão para finalizar pedido
+document.getElementById('finalizarBtn').addEventListener('click', finalizarPedido);

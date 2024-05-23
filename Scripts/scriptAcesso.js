@@ -1,64 +1,51 @@
 // scriptAcesso.js
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('clienteBtn').addEventListener('click', acessarCliente);
-    document.getElementById('funcionarioBtn').addEventListener('click', acessarFuncionario);
-});
+// Função para exibir a tela de acesso do cliente
+function exibirTelaCliente() {
+    document.getElementById('escolherAcesso').style.display = 'none';
+    document.getElementById('acessoCliente').style.display = 'block';
+}
+
+// Função para exibir a tela de acesso do funcionário
+function exibirTelaFuncionario() {
+    document.getElementById('escolherAcesso').style.display = 'none';
+    document.getElementById('acessoFuncionario').style.display = 'block';
+}
+
+// Evento do botão para escolher o acesso como cliente
+document.getElementById('escolherClienteBtn').addEventListener('click', exibirTelaCliente);
+
+// Evento do botão para escolher o acesso como funcionário
+document.getElementById('escolherFuncionarioBtn').addEventListener('click', exibirTelaFuncionario);
 
 // Função para acessar como cliente
-function acessarCliente() {
-    const nomeCliente = document.getElementById('nomeCliente').value.trim();
-    if (nomeCliente) {
-        localStorage.setItem('nomeCliente', nomeCliente);
-        document.getElementById('acessoCliente').style.display = 'none';
-        document.getElementById('pedidoCliente').style.display = 'block';
-        carregarSabores();
-    } else {
-        alert('Por favor, informe seu nome.');
+function acessarComoCliente() {
+    const nomeCliente = document.getElementById('nomeCliente').value;
+    if (!nomeCliente) {
+        alert('Por favor, digite seu nome.');
+        return;
     }
+    document.getElementById('clienteNome').textContent = `Bem-vindo, ${nomeCliente}`;
+    document.getElementById('acessoCliente').style.display = 'none';
+    document.getElementById('pedidoCliente').style.display = 'block';
 }
 
 // Função para acessar como funcionário
-function acessarFuncionario() {
-    const nomeUsuario = document.getElementById('nomeUsuario').value.trim();
-    const senhaUsuario = document.getElementById('senhaUsuario').value.trim();
-
-    if (nomeUsuario && senhaUsuario) {
-        fetch('data/usuarios.json')
-            .then(response => response.json())
-            .then(data => {
-                const usuario = data.usuarios.find(user => user.nome === nomeUsuario && user.senha === senhaUsuario);
-                if (usuario) {
-                    localStorage.setItem('usuario', JSON.stringify(usuario));
-                    document.getElementById('acessoFuncionario').style.display = 'none';
-                    document.getElementById('painelFuncionario').style.display = 'block';
-                    carregarPainel(usuario.admin);
-                } else {
-                    alert('Usuário ou senha incorretos.');
-                }
-            })
-            .catch(error => console.error('Erro ao acessar como funcionário:', error));
+function acessarComoFuncionario() {
+    const nomeUsuario = document.getElementById('nomeUsuario').value;
+    const senhaUsuario = document.getElementById('senhaUsuario').value;
+    if (nomeUsuario === 'admin' && senhaUsuario === 'admin') {
+        document.getElementById('acessoFuncionario').style.display = 'none';
+        document.getElementById('painelFuncionario').style.display = 'block';
+        document.getElementById('gerenciarSaboresBtn').style.display = 'inline-block';
+        document.getElementById('gerenciarUsuariosBtn').style.display = 'inline-block';
     } else {
-        alert('Por favor, informe seu nome de usuário e senha.');
+        alert('Usuário ou senha inválidos.');
     }
 }
 
-// Função para carregar o painel de controle
-function carregarPainel(isAdmin) {
-    if (isAdmin) {
-        document.getElementById('gerenciarSaboresBtn').style.display = 'block';
-        document.getElementById('gerenciarUsuariosBtn').style.display = 'block';
-    } else {
-        document.getElementById('gerenciarSaboresBtn').style.display = 'none';
-        document.getElementById('gerenciarUsuariosBtn').style.display = 'none';
-    }
-    document.getElementById('visualizarPedidosBtn').style.display = 'block';
-    document.getElementById('visualizarAvaliacoesBtn').style.display = 'block';
-}
+// Evento do botão para acessar como cliente
+document.getElementById('clienteBtn').addEventListener('click', acessarComoCliente);
 
-function voltarTelaPrincipal() {
-    document.getElementById('acessoCliente').style.display = 'block';
-    document.getElementById('pedidoCliente').style.display = 'none';
-    document.getElementById('resumoPedido').style.display = 'none';
-    document.getElementById('avaliarPedido').style.display = 'none';
-}
+// Evento do botão para acessar como funcionário
+document.getElementById('funcionarioBtn').addEventListener('click', acessarComoFuncionario);
