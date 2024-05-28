@@ -1,5 +1,6 @@
 // scriptPrincipal.js
 
+<<<<<<< HEAD
 // Função principal para carregar dados iniciais e configurar a interface
 document.addEventListener('DOMContentLoaded', () => {
     carregarSabores();
@@ -29,3 +30,27 @@ function carregarSabores() {
 }
 
 // Funções adicionais podem ser adicionadas aqui conforme necessário
+=======
+// Função para inicializar a aplicação
+function inicializarAplicacao() {
+    document.getElementById('voltarBtnResumo').addEventListener('click', () => {
+        document.getElementById('resumoPedido').style.display = 'none';
+        document.getElementById('escolherAcesso').style.display = 'block';
+    });
+
+    document.getElementById('voltarBtnPainel').addEventListener('click', () => {
+        document.getElementById('painelFuncionario').style.display = 'none';
+        document.getElementById('escolherAcesso').style.display = 'block';
+    });
+
+    document.getElementById('voltarBtnPedido').addEventListener('click', () => {
+        document.getElementById('pedidoCliente').style.display = 'none';
+        document.getElementById('escolherAcesso').style.display = 'block';
+    });
+
+    carregarJson('data/sabores.json', exibirSabores);
+}
+
+// Inicialização da aplicação ao carregar a página
+document.addEventListener('DOMContentLoaded', inicializarAplicacao);
+>>>>>>> 485bdb3a45493f8cf1cab1d8a8e961f4c970fac5

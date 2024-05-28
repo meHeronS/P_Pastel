@@ -1,5 +1,6 @@
 // scriptPedidos.js
 
+<<<<<<< HEAD
 // Função para adicionar item ao carrinho de compras
 function adicionarAoCarrinho(nome, preco) {
     const quantidade = parseInt(prompt('Quantas unidades você deseja?'), 10);
@@ -13,19 +14,76 @@ function adicionarAoCarrinho(nome, preco) {
         }
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
         atualizarCarrinho();
+=======
+// Variáveis globais
+let carrinho = [];
+let numeroPedido = 1;
+
+// Função para exibir os sabores disponíveis
+function exibirSabores(sabores) {
+    const saboresDiv = document.getElementById('sabores');
+    saboresDiv.innerHTML = '';
+    sabores.forEach(sabor => {
+        const saborDiv = document.createElement('div');
+        saborDiv.classList.add('sabor');
+
+        const saborNome = document.createElement('span');
+        saborNome.textContent = sabor.nome;
+
+        const saborPreco = document.createElement('span');
+        saborPreco.textContent = `R$${sabor.preco.toFixed(2)}`;
+
+        const quantidadeInput = document.createElement('input');
+        quantidadeInput.type = 'number';
+        quantidadeInput.value = 1;
+        quantidadeInput.min = 1;
+
+        const adicionarBtn = document.createElement('button');
+        adicionarBtn.textContent = 'Adicionar';
+        adicionarBtn.addEventListener('click', () => adicionarAoCarrinho(sabor, quantidadeInput.value));
+
+        saborDiv.appendChild(saborNome);
+        saborDiv.appendChild(saborPreco);
+        saborDiv.appendChild(quantidadeInput);
+        saborDiv.appendChild(adicionarBtn);
+        saboresDiv.appendChild(saborDiv);
+    });
+}
+
+// Função para adicionar item ao carrinho
+function adicionarAoCarrinho(sabor, quantidade) {
+    const itemExistente = carrinho.find(item => item.sabor === sabor.nome);
+    if (itemExistente) {
+        itemExistente.quantidade += parseInt(quantidade);
+>>>>>>> 485bdb3a45493f8cf1cab1d8a8e961f4c970fac5
     } else {
-        alert('Quantidade inválida!');
+        carrinho.push({ sabor: sabor.nome, quantidade: parseInt(quantidade), preco: sabor.preco });
+    }
+    atualizarCarrinho();
+}
+
+// Função para remover item do carrinho
+function removerDoCarrinho(saborNome) {
+    carrinho = carrinho.filter(item => item.sabor !== saborNome);
+    atualizarCarrinho();
+}
+
+// Função para atualizar quantidade no carrinho
+function atualizarQuantidade(saborNome, novaQuantidade) {
+    const item = carrinho.find(item => item.sabor === saborNome);
+    if (item) {
+        item.quantidade = parseInt(novaQuantidade);
+        atualizarCarrinho();
     }
 }
 
-// Função para atualizar o carrinho de compras na tela
+// Função para atualizar a exibição do carrinho
 function atualizarCarrinho() {
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     const carrinhoDiv = document.getElementById('carrinho');
     carrinhoDiv.innerHTML = '';
-    let total = 0;
 
     carrinho.forEach(item => {
+<<<<<<< HEAD
         const div = document.createElement('div');
         div.className = 'carrinho-item';
         div.textContent = `${item.nome} - R$${item.preco.toFixed(2)} x ${item.quantidade}`;
@@ -43,10 +101,38 @@ function atualizarCarrinho() {
     finalizarBtn.textContent = 'Finalizar Pedido';
     finalizarBtn.onclick = finalizarPedido;
     carrinhoDiv.appendChild(finalizarBtn);
+=======
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('item-carrinho');
+
+        const itemNome = document.createElement('span');
+        itemNome.textContent = item.sabor;
+
+        const itemQuantidade = document.createElement('input');
+        itemQuantidade.type = 'number';
+        itemQuantidade.value = item.quantidade;
+        itemQuantidade.min = 1;
+        itemQuantidade.addEventListener('change', () => atualizarQuantidade(item.sabor, itemQuantidade.value));
+
+        const itemPreco = document.createElement('span');
+        itemPreco.textContent = `R$${(item.preco * item.quantidade).toFixed(2)}`;
+
+        const removerBtn = document.createElement('button');
+        removerBtn.textContent = 'Remover';
+        removerBtn.addEventListener('click', () => removerDoCarrinho(item.sabor));
+
+        itemDiv.appendChild(itemNome);
+        itemDiv.appendChild(itemQuantidade);
+        itemDiv.appendChild(itemPreco);
+        itemDiv.appendChild(removerBtn);
+        carrinhoDiv.appendChild(itemDiv);
+    });
+>>>>>>> 485bdb3a45493f8cf1cab1d8a8e961f4c970fac5
 }
 
 // Função para finalizar o pedido
 function finalizarPedido() {
+<<<<<<< HEAD
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     if (carrinho.length === 0) {
         alert('Seu carrinho está vazio!');
@@ -102,9 +188,15 @@ function confirmarAvaliacao(desejaAvaliar) {
         setTimeout(() => {
             voltarInicio();
         }, 2000);
+=======
+    const nomeCliente = document.getElementById('nomeCliente').value;
+    if (!nomeCliente) {
+        alert('Por favor, digite seu nome.');
+        return;
+>>>>>>> 485bdb3a45493f8cf1cab1d8a8e961f4c970fac5
     }
-}
 
+<<<<<<< HEAD
 // Função para salvar a avaliação
 function salvarAvaliacao() {
     const nota = document.querySelector('input[name="notaAvaliacao"]:checked').value;
@@ -131,4 +223,25 @@ function salvarAvaliacao() {
             voltarInicio();
         })
         .catch(error => console.error('Erro ao salvar a avaliação:', error));
+=======
+    const valorTotal = carrinho.reduce((total, item) => total + item.quantidade * item.preco, 0);
+    const pedido = {
+        nomeCliente,
+        numeroPedido: numeroPedido++,
+        valorTotal,
+        itens: carrinho
+    };
+
+    salvarJson('data/pedidos.json', pedido);
+
+    document.getElementById('resumoNome').textContent = `Nome: ${nomeCliente}`;
+    document.getElementById('resumoNumero').textContent = `Número do Pedido: ${pedido.numeroPedido}`;
+    document.getElementById('resumoTotal').textContent = `Valor Total: R$${valorTotal.toFixed(2)}`;
+
+    document.getElementById('pedidoCliente').style.display = 'none';
+    document.getElementById('resumoPedido').style.display = 'block';
+>>>>>>> 485bdb3a45493f8cf1cab1d8a8e961f4c970fac5
 }
+
+// Evento do botão para finalizar pedido
+document.getElementById('finalizarBtn').addEventListener('click', finalizarPedido);

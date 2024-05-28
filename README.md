@@ -60,4 +60,8 @@ Contribuições são bem-vindas! Sinta-se à vontade para enviar pull requests c
 
 ## Licença
 
+<<<<<<< HEAD
 Este projeto está licenciado sob a [MIT License](LICENSE).
+=======
+Este projeto está licenciado sob a [MIT License](LICENSE).
+>>>>>>> 485bdb3a45493f8cf1cab1d8a8e961f4c970fac5

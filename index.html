@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Pedidos</title>
+    <title>Pasteis do SI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Cabeçalho do site com o nome estilizado da loja -->
     <header>
-        <h1>Sistema de Pedidos</h1>
+        <h1>Pasteis do SI</h1>
     </header>
     <main>
+<<<<<<< HEAD
         <!-- Página Inicial -->
         <div id="paginaInicial" class="acesso">
             <h2>Bem-vindo!</h2>
@@ -72,15 +74,102 @@
                 <button class="btn" type="submit">Enviar Avaliação</button>
             </form>
         </div>
+=======
+        <!-- Seção inicial para escolher o tipo de acesso -->
+        <section id="escolherAcesso">
+            <h2>Escolha o Tipo de Acesso</h2>
+            <!-- Botão para acessar como cliente -->
+            <button id="escolherClienteBtn">Cliente</button>
+            <!-- Botão para acessar como funcionário -->
+            <button id="escolherFuncionarioBtn">Funcionário</button>
+        </section>
+
+        <!-- Seção de acesso do cliente (oculto inicialmente) -->
+        <section id="acessoCliente" style="display: none;">
+            <h2>Acesso Cliente</h2>
+            <!-- Campo para o cliente digitar o nome -->
+            <input type="text" id="nomeCliente" placeholder="Digite seu nome">
+            <!-- Botão para o cliente entrar -->
+            <button id="clienteBtn">Entrar</button>
+        </section>
+
+        <!-- Seção de pedidos do cliente (oculto inicialmente) -->
+        <section id="pedidoCliente" style="display: none;">
+            <!-- Nome do cliente será exibido aqui -->
+            <h2 id="clienteNome"></h2>
+            <!-- Subtítulo para Pasteis -->
+            <h3>Pasteis</h3>
+            <!-- Subtítulo para escolha dos sabores -->
+            <h3>Escolha seus sabores</h3>
+            <!-- Div para listar os sabores disponíveis -->
+            <div id="sabores"></div>
+            <!-- Div para exibir itens no carrinho -->
+            <div id="carrinho"></div>
+            <!-- Botão para finalizar o pedido -->
+            <button id="finalizarBtn">Finalizar Pedido</button>
+            <!-- Botão para voltar à tela inicial -->
+            <button id="voltarBtnPedido">Voltar</button>
+        </section>
+
+        <!-- Seção de resumo do pedido (oculto inicialmente) -->
+        <section id="resumoPedido" style="display: none;">
+            <h2>Resumo do Pedido</h2>
+            <!-- Nome do cliente -->
+            <p id="resumoNome"></p>
+            <!-- Número do pedido -->
+            <p id="resumoNumero"></p>
+            <!-- Valor total do pedido -->
+            <p id="resumoTotal"></p>
+            <!-- Mensagem para o cliente se dirigir ao caixa -->
+            <p>Por favor, dirija-se ao caixa para realizar o pagamento.</p>
+            <!-- Botão para avaliar o atendimento -->
+            <button id="avaliarBtn">Avaliar Atendimento</button>
+            <!-- Botão para voltar à tela inicial -->
+            <button id="voltarBtnResumo">Voltar</button>
+        </section>
+
+        <!-- Seção de avaliação (oculto inicialmente) -->
+        <section id="avaliacaoCliente" style="display: none;">
+            <h2>Avaliação</h2>
+            <label for="notaAvaliacao">Nota (0-5):</label>
+            <input type="number" id="notaAvaliacao" min="0" max="5">
+            <label for="comentarioAvaliacao">Comentário (opcional, até 100 caracteres):</label>
+            <textarea id="comentarioAvaliacao" maxlength="100"></textarea>
+            <button id="enviarAvaliacaoBtn">Enviar Avaliação</button>
+            <button id="pularAvaliacaoBtn">Pular Avaliação</button>
+        </section>
+
+        <!-- Seção de acesso do funcionário (oculto inicialmente) -->
+        <section id="acessoFuncionario" style="display: none;">
+            <h2>Acesso Funcionário</h2>
+            <!-- Campo para o funcionário digitar o nome de usuário -->
+            <input type="text" id="nomeUsuario" placeholder="Nome de usuário">
+            <!-- Campo para o funcionário digitar a senha -->
+            <input type="password" id="senhaUsuario" placeholder="Senha">
+            <!-- Botão para o funcionário entrar -->
+            <button id="funcionarioBtn">Entrar</button>
+        </section>
+
+        <!-- Seção do painel administrativo (oculto inicialmente) -->
+        <section id="painelFuncionario" style="display: none;">
+            <h2>Painel Administrativo</h2>
+            <!-- Botões de gerenciamento para o administrador -->
+            <button id="gerenciarSaboresBtn" style="display: none;">Gerenciar Sabores</button>
+            <button id="gerenciarUsuariosBtn" style="display: none;">Gerenciar Usuários</button>
+            <button id="visualizarPedidosBtn">Visualizar Pedidos</button>
+            <button id="visualizarAvaliacoesBtn">Visualizar Avaliações</button>
+            <!-- Botão para voltar para a tela principal -->
+            <button id="voltarBtnPainel">Voltar</button>
+        </section>
+>>>>>>> 485bdb3a45493f8cf1cab1d8a8e961f4c970fac5
     </main>
     <footer>
-        <p>© 2024 Sistema de Pedidos. Todos os direitos reservados.</p>
+        <p>&copy; 2024 Pasteis do SI</p>
     </footer>
-
-    <!-- Incluindo scripts modularizados -->
+    <!-- Scripts JavaScript para funcionalidades -->
     <script src="scripts/scriptAcesso.js"></script>
-    <script src="scripts/scriptPedidos.js"></script>
     <script src="scripts/scriptJson.js"></script>
+    <script src="scripts/scriptPedidos.js"></script>
     <script src="scripts/scriptPrincipal.js"></script>
 </body>
 </html>
