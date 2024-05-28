@@ -1,12 +1,16 @@
 // scriptPedidos.js
 
-// Função para adicionar um item ao carrinho de compras do cliente
+// Função para adicionar item ao carrinho de compras
 function adicionarAoCarrinho(nome, preco) {
-    const quantidade = parseInt(document.getElementById(`quantidade-${nome}`).value);
+    const quantidade = parseInt(prompt('Quantas unidades você deseja?'), 10);
     if (quantidade > 0) {
-        const item = { nome, preco, quantidade };
         const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-        carrinho.push(item);
+        const itemExistente = carrinho.find(item => item.nome === nome);
+        if (itemExistente) {
+            itemExistente.quantidade += quantidade;
+        } else {
+            carrinho.push({ nome, preco, quantidade });
+        }
         localStorage.setItem('carrinho', JSON.stringify(carrinho));
         atualizarCarrinho();
     } else {
@@ -22,10 +26,10 @@ function atualizarCarrinho() {
     let total = 0;
 
     carrinho.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'carrinho-item';
-        itemDiv.textContent = `${item.quantidade}x ${item.nome} - R$${(item.preco * item.quantidade).toFixed(2)}`;
-        carrinhoDiv.appendChild(itemDiv);
+        const div = document.createElement('div');
+        div.className = 'carrinho-item';
+        div.textContent = `${item.nome} - R$${item.preco.toFixed(2)} x ${item.quantidade}`;
+        carrinhoDiv.appendChild(div);
         total += item.preco * item.quantidade;
     });
 
@@ -39,27 +43,26 @@ function atualizarCarrinho() {
     finalizarBtn.textContent = 'Finalizar Pedido';
     finalizarBtn.onclick = finalizarPedido;
     carrinhoDiv.appendChild(finalizarBtn);
-
-    const voltarBtn = document.createElement('button');
-    voltarBtn.className = 'btn';
-    voltarBtn.textContent = 'Voltar';
-    voltarBtn.onclick = voltarTelaPrincipal;
-    carrinhoDiv.appendChild(voltarBtn);
 }
 
 // Função para finalizar o pedido
 function finalizarPedido() {
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    if (carrinho.length === 0) {
+        alert('Seu carrinho está vazio!');
+        return;
+    }
+
+    const clienteNome = localStorage.getItem('clienteNome');
     const total = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
-    const pedidoNumero = gerarNumeroPedido();
-    const nomeCliente = localStorage.getItem('nomeCliente');
+    const pedidoCodigo = Math.random().toString(36).substr(2, 9).toUpperCase();
 
     const pedido = {
-        numero: pedidoNumero,
-        total: total,
+        codigo: pedidoCodigo,
+        cliente: clienteNome,
         itens: carrinho,
-        data: new Date().toLocaleString(),
-        cliente: nomeCliente,
+        total,
+        finalizado: false,
         pago: false,
         entregue: false
     };
@@ -70,50 +73,47 @@ function finalizarPedido() {
             data.pedidos.push(pedido);
             return fetch('data/pedidos.json', {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
         })
         .then(() => {
             localStorage.removeItem('carrinho');
-            document.getElementById('pedidoCliente').style.display = 'none';
-            document.getElementById('resumoPedido').style.display = 'block';
-            document.getElementById('resumoPedidoNome').textContent = `Cliente: ${nomeCliente}`;
-            document.getElementById('resumoPedidoNumero').textContent = `Número do Pedido: ${pedidoNumero}`;
-            document.getElementById('resumoPedidoValor').textContent = `Valor Total: R$${total.toFixed(2)}`;
+            mostrarResumoPedido(pedidoCodigo, total);
         })
-        .catch(error => console.error('Erro ao finalizar pedido:', error));
+        .catch(error => console.error('Erro ao finalizar o pedido:', error));
 }
 
-// Função para gerar um número sequencial de pedido
-function gerarNumeroPedido() {
-    const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
-    return (pedidos.length + 1).toString().padStart(7, '0');
+// Função para mostrar o resumo do pedido
+function mostrarResumoPedido(codigo, total) {
+    document.getElementById('pedidoCliente').style.display = 'none';
+    document.getElementById('resumoPedido').style.display = 'block';
+    document.getElementById('resumoPedidoNumero').textContent = `Código do Pedido: ${codigo}`;
+    document.getElementById('resumoPedidoValor').textContent = `Total: R$${total.toFixed(2)}`;
 }
 
-// Função para confirmar a avaliação do pedido
+// Função para confirmar se o cliente deseja deixar uma avaliação
 function confirmarAvaliacao(desejaAvaliar) {
     if (desejaAvaliar) {
         document.getElementById('resumoPedido').style.display = 'none';
         document.getElementById('avaliarPedido').style.display = 'block';
     } else {
-        alert('Obrigado pelo seu pedido!');
-        setTimeout(voltarTelaPrincipal, 2000);
+        alert('Obrigado pelo pedido!');
+        setTimeout(() => {
+            voltarInicio();
+        }, 2000);
     }
 }
 
-// Função para salvar a avaliação do cliente
+// Função para salvar a avaliação
 function salvarAvaliacao() {
     const nota = document.querySelector('input[name="notaAvaliacao"]:checked').value;
     const comentario = document.getElementById('comentarioAvaliacao').value;
-    const clienteNome = localStorage.getItem('nomeCliente');
 
     const avaliacao = {
-        nome: clienteNome,
-        nota: parseInt(nota),
-        comentario: comentario
+        cliente: localStorage.getItem('clienteNome'),
+        nota,
+        comentario
     };
 
     fetch('data/avaliacoes.json')
@@ -122,15 +122,13 @@ function salvarAvaliacao() {
             data.avaliacoes.push(avaliacao);
             return fetch('data/avaliacoes.json', {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
         })
         .then(() => {
-            alert('Obrigado pela sua avaliação!');
-            setTimeout(voltarTelaPrincipal, 2000);
+            alert('Obrigado pela avaliação!');
+            voltarInicio();
         })
-        .catch(error => console.error('Erro ao salvar avaliação:', error));
+        .catch(error => console.error('Erro ao salvar a avaliação:', error));
 }

@@ -11,28 +11,28 @@
         <h1>Sistema de Pedidos</h1>
     </header>
     <main>
-        <!-- Tela Principal -->
-        <div id="telaPrincipal">
+        <!-- Página Inicial -->
+        <div id="paginaInicial" class="acesso">
             <h2>Bem-vindo!</h2>
-            <button class="btn" onclick="mostrarAcessoCliente()">Entrar como Cliente</button>
-            <button class="btn" onclick="mostrarAcessoUsuario()">Entrar como Funcionário/Usuário</button>
+            <button class="btn" onclick="mostrarAcessoCliente()">Acesso Cliente</button>
+            <button class="btn" onclick="mostrarAcessoFuncionario()">Acesso Funcionário</button>
         </div>
 
         <!-- Acesso do Cliente -->
-        <div id="acessoCliente" class="acesso hidden">
-            <h2>Acesso Cliente</h2>
-            <input type="text" id="clienteNome" placeholder="Seu Nome" class="input">
+        <div id="acessoCliente" class="hidden">
+            <h2>Bem-vindo Cliente!</h2>
+            <input type="text" id="clienteNome" placeholder="Digite seu nome" class="input" required>
             <button class="btn" onclick="acessarCliente()">Realizar Pedido</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar</button>
+            <button class="btn" onclick="voltarInicio()">Voltar</button>
         </div>
 
-        <!-- Acesso do Usuário -->
-        <div id="acessoUsuario" class="acesso hidden">
-            <h2>Acesso Usuário</h2>
+        <!-- Acesso do Funcionário -->
+        <div id="acessoFuncionario" class="hidden">
+            <h2>Acesso Funcionário</h2>
             <input type="text" id="usuarioNome" placeholder="Nome de Usuário" class="input">
             <input type="password" id="usuarioSenha" placeholder="Senha" class="input">
             <button class="btn" onclick="acessarUsuario()">Acessar</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar</button>
+            <button class="btn" onclick="voltarInicio()">Voltar</button>
         </div>
 
         <!-- Painel do Cliente -->
@@ -44,15 +44,14 @@
             <div id="carrinho" class="carrinho">
                 <!-- O carrinho de compras será atualizado aqui -->
             </div>
+            <button class="btn" onclick="voltarInicio()">Voltar</button>
         </div>
 
         <!-- Resumo do Pedido -->
         <div id="resumoPedido" class="hidden">
             <h2>Resumo do Pedido</h2>
-            <p id="resumoPedidoNome"></p>
             <p id="resumoPedidoNumero"></p>
             <p id="resumoPedidoValor"></p>
-            <p>Por favor, dirija-se ao caixa para pagamento.</p>
             <p>Deseja deixar uma avaliação?</p>
             <button class="btn" onclick="confirmarAvaliacao(true)">Sim</button>
             <button class="btn" onclick="confirmarAvaliacao(false)">Não</button>
@@ -72,23 +71,6 @@
                 <textarea id="comentarioAvaliacao" placeholder="Deixe seu comentário (opcional)" maxlength="100"></textarea>
                 <button class="btn" type="submit">Enviar Avaliação</button>
             </form>
-        </div>
-
-        <!-- Painel do Administrador -->
-        <div id="painelAdmin" class="hidden">
-            <h2>Painel Administrativo</h2>
-            <button class="btn" onclick="gerenciarSabores()">Gerenciar Sabores</button>
-            <button class="btn" onclick="gerenciarUsuarios()">Gerenciar Usuários</button>
-            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
-            <button class="btn" onclick="visualizarAvaliacoes()">Visualizar Avaliações</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar para Tela Principal</button>
-        </div>
-
-        <!-- Painel do Usuário -->
-        <div id="painelUsuario" class="hidden">
-            <h2>Painel do Usuário</h2>
-            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
-            <button class="btn" onclick="voltarTelaPrincipal()">Voltar para Tela Principal</button>
         </div>
     </main>
     <footer>
