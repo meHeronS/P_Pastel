@@ -1,28 +1,63 @@
 // scriptJson.js
 
-// Função para carregar JSON
-function carregarJson(arquivo, callback) {
-    fetch(arquivo)
+// Função para inicializar os dados do JSON
+function inicializarDados() {
+    // Inicializa os dados dos usuários
+    fetch('data/usuarios.json')
         .then(response => response.json())
-        .then(data => callback(data))
-        .catch(error => console.error('Erro ao carregar JSON:', error));
+        .then(data => {
+            if (!data.usuarios) {
+                data.usuarios = [];
+                return fetch('data/usuarios.json', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            }
+        });
+
+    // Inicializa os dados dos pedidos
+    fetch('data/pedidos.json')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.pedidos) {
+                data.pedidos = [];
+                return fetch('data/pedidos.json', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            }
+        });
+
+    // Inicializa os dados das avaliações
+    fetch('data/avaliacoes.json')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.avaliacoes) {
+                data.avaliacoes = [];
+                return fetch('data/avaliacoes.json', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            }
+        });
+
+    // Inicializa os dados dos sabores
+    fetch('data/sabores.json')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.sabores) {
+                data.sabores = [];
+                return fetch('data/sabores.json', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            }
+        });
 }
 
-<<<<<<< HEAD
-// Inicializar JSONs ao carregar o sistema
-document.addEventListener('DOMContentLoaded', inicializarJson);
-=======
-// Função para salvar JSON
-function salvarJson(arquivo, dados) {
-    fetch(arquivo, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dados)
-    })
-    .then(response => response.json())
-    .then(data => console.log('Sucesso ao salvar JSON:', data))
-    .catch(error => console.error('Erro ao salvar JSON:', error));
-}
-
+// Chama a função para inicializar os dados ao carregar o script
+inicializarDados();

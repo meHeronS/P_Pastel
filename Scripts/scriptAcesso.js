@@ -4,12 +4,15 @@
 function mostrarAcessoCliente() {
     document.getElementById('paginaInicial').style.display = 'none';
     document.getElementById('acessoCliente').style.display = 'block';
+    document.getElementById('clienteNome').value = ''; // Limpa o campo de nome do cliente
 }
 
-// Função para mostrar a tela de acesso do funcionário
+// Função para mostrar a tela de acesso do funcionário e limpar os campos
 function mostrarAcessoFuncionario() {
     document.getElementById('paginaInicial').style.display = 'none';
     document.getElementById('acessoFuncionario').style.display = 'block';
+    document.getElementById('usuarioNome').value = '';
+    document.getElementById('usuarioSenha').value = '';
 }
 
 // Função para validar o acesso de usuários
@@ -22,7 +25,12 @@ function acessarUsuario() {
             const usuario = data.usuarios.find(u => u.nome === nome && u.senha === senha);
             if (usuario) {
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
-                window.location.href = 'painelFuncionario.html'; // Redireciona para a nova página do painel do funcionário
+                if (usuario.admin) {
+                    document.getElementById('painelAdmin').style.display = 'block';
+                } else {
+                    document.getElementById('painelUsuario').style.display = 'block';
+                }
+                document.getElementById('acessoFuncionario').style.display = 'none';
             } else {
                 alert('Usuário ou senha incorretos!');
             }
@@ -42,13 +50,26 @@ function acessarCliente() {
     document.getElementById('pedidoCliente').style.display = 'block';
 }
 
-// Função para voltar à tela inicial de acesso e realizar logoff
+// Função para voltar à tela inicial de acesso
 function voltarInicio() {
-    // Limpa os dados do localStorage
-    localStorage.removeItem('usuarioLogado');
-    localStorage.removeItem('clienteNome');
-    localStorage.removeItem('carrinho');
+    document.getElementById('paginaInicial').style.display = 'block';
+    document.getElementById('acessoFuncionario').style.display = 'none';
+    document.getElementById('acessoCliente').style.display = 'none';
+    document.getElementById('pedidoCliente').style.display = 'none';
+    document.getElementById('resumoPedido').style.display = 'none';
+    document.getElementById('avaliarPedido').style.display = 'none';
+    document.getElementById('painelAdmin').style.display = 'none';
+    document.getElementById('painelUsuario').style.display = 'none';
+}
 
-    // Redireciona para a página inicial
-    window.location.href = 'index.html';
+// Função para revogar o acesso do usuário
+function revogarAcesso() {
+    localStorage.removeItem('usuarioLogado');
+    voltarInicio();
+}
+
+// Função para revogar o acesso do cliente
+function revogarAcessoCliente() {
+    localStorage.removeItem('clienteNome');
+    voltarInicio();
 }
