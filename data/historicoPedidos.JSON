@@ -1,0 +1,32 @@
+[
+  {
+      "numeroPedido": 1,
+      "nomeCliente": "João",
+      "itens": [
+          {"sabor": "Carne", "quantidade": 2, "preco": 5},
+          {"sabor": "Queijo", "quantidade": 1, "preco": 4}
+      ],
+      "valorTotal": 14,
+      "status": "fechado"
+  },
+  {
+      "numeroPedido": 2,
+      "nomeCliente": "Maria",
+      "itens": [
+          {"sabor": "Frango", "quantidade": 1, "preco": 6},
+          {"sabor": "Calabresa", "quantidade": 3, "preco": 5}
+      ],
+      "valorTotal": 21,
+      "status": "fechado"
+  },
+  {
+      "numeroPedido": 3,
+      "nomeCliente": "Carlos",
+      "itens": [
+          {"sabor": "Carne", "quantidade": 2, "preco": 5},
+          {"sabor": "Queijo", "quantidade": 1, "preco": 4}
+      ],
+      "valorTotal": 14,
+      "status": "fechado"
+  }
+]

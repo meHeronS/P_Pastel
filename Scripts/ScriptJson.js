@@ -1,63 +1,31 @@
 // scriptJson.js
 
-// Função para inicializar os dados do JSON
-function inicializarDados() {
-    // Inicializa os dados dos usuários
-    fetch('data/usuarios.json')
-        .then(response => response.json())
-        .then(data => {
-            if (!data.usuarios) {
-                data.usuarios = [];
-                return fetch('data/usuarios.json', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            }
-        });
+// Função que é executada quando o documento HTML foi completamente carregado
+document.addEventListener('DOMContentLoaded', () => {
+    // Verifica se os dados dos usuários já foram carregados no localStorage
+    if (!localStorage.getItem('usuarios')) {
+        fetch('/Data/usuarios.json') // Faz uma requisição para obter o arquivo JSON dos usuários
+            .then(response => response.json()) // Converte a resposta para JSON
+            .then(usuarios => {
+                localStorage.setItem('usuarios', JSON.stringify(usuarios)); // Armazena os dados dos usuários no localStorage
+            });
+    }
 
-    // Inicializa os dados dos pedidos
-    fetch('data/pedidos.json')
-        .then(response => response.json())
-        .then(data => {
-            if (!data.pedidos) {
-                data.pedidos = [];
-                return fetch('data/pedidos.json', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            }
-        });
+    // Verifica se os dados dos sabores já foram carregados no localStorage
+    if (!localStorage.getItem('sabores')) {
+        fetch('/Data/sabores.json') // Faz uma requisição para obter o arquivo JSON dos sabores
+            .then(response => response.json()) // Converte a resposta para JSON
+            .then(sabores => {
+                localStorage.setItem('sabores', JSON.stringify(sabores)); // Armazena os dados dos sabores no localStorage
+            });
+    }
 
-    // Inicializa os dados das avaliações
-    fetch('data/avaliacoes.json')
-        .then(response => response.json())
-        .then(data => {
-            if (!data.avaliacoes) {
-                data.avaliacoes = [];
-                return fetch('data/avaliacoes.json', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            }
-        });
-
-    // Inicializa os dados dos sabores
-    fetch('data/sabores.json')
-        .then(response => response.json())
-        .then(data => {
-            if (!data.sabores) {
-                data.sabores = [];
-                return fetch('data/sabores.json', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            }
-        });
-}
-
-// Chama a função para inicializar os dados ao carregar o script
-inicializarDados();
+    // Verifica se os dados dos pedidos já foram carregados no localStorage
+    if (!localStorage.getItem('pedidos')) {
+        fetch('/Data/pedidos.json') // Faz uma requisição para obter o arquivo JSON dos pedidos
+            .then(response => response.json()) // Converte a resposta para JSON
+            .then(pedidos => {
+                localStorage.setItem('pedidos', JSON.stringify(pedidos)); // Armazena os dados dos pedidos no localStorage
+            });
+    }
+});

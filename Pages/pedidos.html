@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <title>Pedidos - Pasteis do 1° SI</title>
+</head>
+<body>
+    <header>
+        <h1>Pasteis do 1° SI</h1>
+    </header>
+    <main>
+        <h2>Faça seu Pedido</h2>
+        <div id="saboresContainer">
+            <!-- Lista de sabores será carregada dinamicamente aqui -->
+        </div>
+        <div id="carrinhoContainer">
+            <h3>Carrinho</h3>
+            <ul id="carrinho">
+                <!-- Itens do carrinho serão carregados dinamicamente aqui -->
+            </ul>
+            <p id="total">Total: R$ 0,00</p>
+            <button class="btn" id="finalizarPedido">Finalizar Pedido</button>
+        </div>
+        <button class="btn" onclick="window.location.href='../Pages/gestaoSistema.html'">Voltar</button>
+    </main>
+    <footer>
+        <p>&copy; 2024 Pasteis do 1° SI</p>
+    </footer>
+    <script src="../scripts/scriptPedidos.js"></script>
+</body>
+</html>

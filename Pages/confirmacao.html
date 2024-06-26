@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação do Pedido - Pasteis do 1° SI</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <h1>Confirmação do Pedido</h1>
+    </header>
+    <main>
+        <div class="carrinho">
+            <h2>Seu Pedido</h2>
+            <div id="numeroPedido"></div> <!-- Número do pedido -->
+            <div id="nomeCliente"></div> <!-- Nome do cliente -->
+            <div id="itensPedido"></div> <!-- Itens do pedido -->
+            <div id="totalPedido"></div> <!-- Total do pedido -->
+        </div>
+        <div class="avaliacao">
+            <h2>Avalie nosso atendimento</h2>
+            <label for="nota">Nota (1 a 5):</label>
+            <input type="number" id="nota" min="1" max="5">
+            <label for="avaliacao">Avaliação:</label>
+            <textarea id="avaliacao" maxlength="100"></textarea>
+            <button class="btn" id="btnSalvarAvaliacao">Salvar Avaliação</button>
+        </div>
+        <button class="btn" id="btnConfirmar">Confirmar Pedido</button>
+        <button class="btn" id="btnCancelar">Cancelar Pedido</button>
+    </main>
+    <footer>
+        <p>&copy; 2024 Pasteis do 1° SI</p>
+    </footer>
+    <script src="../Scripts/scriptConfirmacao.js"></script>
+</body>
+</html>

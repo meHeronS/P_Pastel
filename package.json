@@ -1,0 +1,17 @@
+{
+  "name": "p_pastel",
+  "version": "1.0.0",
+  "description": "Este projeto é um sistema de pedidos para a loja \"Pasteis do 1° SI\", que permite o acesso tanto de clientes quanto de funcionários. O sistema permite que clientes façam pedidos de pastéis e que funcionários gerenciem esses pedidos, além de adicionar e gerenciar sabores, funcionários e visualizar avaliações.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2"
+  }
+}

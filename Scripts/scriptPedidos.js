@@ -1,124 +1,116 @@
-// scriptPedidos.js
+document.addEventListener('DOMContentLoaded', () => {
+    const saboresContainer = document.getElementById('saboresContainer');
+    const carrinhoElement = document.getElementById('carrinho');
+    const totalElement = document.getElementById('total');
+    const finalizarPedidoButton = document.getElementById('finalizarPedido');
+    
+    let carrinho = [];
 
-let carrinho = [];
+    // Função para carregar sabores
+    function carregarSabores() {
+        fetch('../Data/sabores.json')
+            .then(response => response.json())
+            .then(data => {
+                const sabores = data.sabores;
+                sabores.forEach(sabor => {
+                    const saborItem = document.createElement('div');
+                    saborItem.className = 'sabor-item';
+                    saborItem.innerHTML = `
+                        <span>${sabor.sabor} - R$ ${sabor.preco.toFixed(2)}</span>
+                        <input type="number" min="1" value="1" class="quantidade">
+                        <button class="btn adicionarCarrinho">Adicionar</button>
+                    `;
+                    saboresContainer.appendChild(saborItem);
 
-// Função para adicionar um sabor ao carrinho
-function adicionarAoCarrinho(sabor) {
-    const quantidade = document.getElementById(`quantidade-${sabor.id}`).value;
-    const preco = sabor.preco;
-    carrinho.push({ sabor: sabor.nome, quantidade: quantidade, preco: preco });
-    atualizarCarrinho();
-}
+                    saborItem.querySelector('.adicionarCarrinho').addEventListener('click', () => {
+                        const quantidade = parseInt(saborItem.querySelector('.quantidade').value);
+                        adicionarAoCarrinho(sabor, quantidade);
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar os sabores:', error);
+            });
+    }
 
-// Função para atualizar o carrinho de compras
-function atualizarCarrinho() {
-    const carrinhoDiv = document.getElementById('carrinho');
-    carrinhoDiv.innerHTML = '';
-    let total = 0;
+    // Função para adicionar item ao carrinho
+    function adicionarAoCarrinho(sabor, quantidade) {
+        const itemExistente = carrinho.find(item => item.sabor === sabor.sabor);
+        if (itemExistente) {
+            itemExistente.quantidade += quantidade;
+        } else {
+            carrinho.push({ ...sabor, quantidade });
+        }
+        atualizarCarrinho();
+    }
 
-    carrinho.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('carrinho-item');
-        itemDiv.innerHTML = `${item.quantidade} x ${item.sabor} - R$${(item.preco * item.quantidade).toFixed(2)}`;
-        carrinhoDiv.appendChild(itemDiv);
-        total += item.preco * item.quantidade;
+    // Função para atualizar carrinho
+    function atualizarCarrinho() {
+        carrinhoElement.innerHTML = '';
+        let total = 0;
+
+        carrinho.forEach(item => {
+            const itemElement = document.createElement('li');
+            itemElement.className = 'carrinho-item';
+            itemElement.innerHTML = `
+                <span>${item.quantidade} x ${item.sabor} - R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+                <button class="btn removerItem">Remover</button>
+            `;
+            carrinhoElement.appendChild(itemElement);
+
+            itemElement.querySelector('.removerItem').addEventListener('click', () => {
+                removerDoCarrinho(item.sabor);
+            });
+
+            total += item.preco * item.quantidade;
+        });
+
+        totalElement.textContent = `Total: R$ ${total.toFixed(2)}`;
+    }
+
+    // Função para remover item do carrinho
+    function removerDoCarrinho(sabor) {
+        carrinho = carrinho.filter(item => item.sabor !== sabor);
+        atualizarCarrinho();
+    }
+
+    // Função para finalizar o pedido
+    finalizarPedidoButton.addEventListener('click', () => {
+        if (carrinho.length === 0) {
+            alert('O carrinho está vazio.');
+            return;
+        }
+
+        const pedido = {
+            nomeCliente: localStorage.getItem('nomeCliente'),
+            itens: carrinho,
+            total: carrinho.reduce((sum, item) => sum + item.preco * item.quantidade, 0)
+        };
+
+        fetch('http://localhost:3000/api/pedidos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pedido)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na resposta da rede');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Pedido realizado com sucesso!');
+            localStorage.removeItem('carrinho');
+            window.location.href = '../Pages/confirmacao.html'; // Redireciona para a página de confirmação
+        })
+        .catch(error => {
+            console.error('Erro ao finalizar o pedido:', error);
+        });
     });
 
-    const totalDiv = document.createElement('div');
-    totalDiv.classList.add('carrinho-total');
-    totalDiv.innerHTML = `Total: R$${total.toFixed(2)}`;
-    carrinhoDiv.appendChild(totalDiv);
-
-    const finalizarBtn = document.createElement('button');
-    finalizarBtn.classList.add('btn');
-    finalizarBtn.innerHTML = 'Finalizar Pedido';
-    finalizarBtn.onclick = finalizarPedido;
-    carrinhoDiv.appendChild(finalizarBtn);
-}
-
-// Função para finalizar o pedido
-function finalizarPedido() {
-    const clienteNome = localStorage.getItem('clienteNome');
-    if (!clienteNome) {
-        alert('Nome do cliente não encontrado. Por favor, volte e insira seu nome novamente.');
-        voltarInicio();
-        return;
-    }
-
-    const numeroPedido = new Date().getTime();
-    const totalPedido = carrinho.reduce((total, item) => total + (item.preco * item.quantidade), 0);
-
-    const pedido = {
-        data: new Date().toISOString(),
-        cliente: clienteNome,
-        numeroPedido: numeroPedido,
-        produtosPedidos: carrinho,
-        formaDePagamento: 'pendente', // Será atualizado no pagamento
-        valor: totalPedido
-    };
-
-    fetch('data/pedidos.json')
-        .then(response => response.json())
-        .then(data => {
-            data.pedidos.push(pedido);
-            return fetch('data/pedidos.json', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-        })
-        .then(() => {
-            localStorage.removeItem('clienteNome');
-            mostrarResumoPedido(numeroPedido, totalPedido);
-        })
-        .catch(error => console.error('Erro ao finalizar o pedido:', error));
-}
-
-// Função para mostrar o resumo do pedido
-function mostrarResumoPedido(numeroPedido, totalPedido) {
-    document.getElementById('pedidoCliente').style.display = 'none';
-    const resumoDiv = document.getElementById('resumoPedido');
-    resumoDiv.style.display = 'block';
-    document.getElementById('resumoPedidoNumero').innerHTML = `Número do Pedido: ${numeroPedido}`;
-    document.getElementById('resumoPedidoValor').innerHTML = `Total: R$${totalPedido.toFixed(2)}`;
-}
-
-// Função para confirmar se deseja deixar uma avaliação
-function confirmarAvaliacao(desejaAvaliar) {
-    if (desejaAvaliar) {
-        document.getElementById('resumoPedido').style.display = 'none';
-        document.getElementById('avaliarPedido').style.display = 'block';
-    } else {
-        alert('Obrigado pelo pedido!');
-        setTimeout(voltarInicio, 2000);
-    }
-}
-
-// Função para salvar a avaliação do cliente
-function salvarAvaliacao() {
-    const clienteNome = localStorage.getItem('clienteNome');
-    const nota = document.querySelector('input[name="notaAvaliacao"]:checked').value;
-    const comentario = document.getElementById('comentarioAvaliacao').value;
-
-    const avaliacao = {
-        nomeCliente: clienteNome,
-        avaliacaoEmEstrelas: nota,
-        comentario: comentario
-    };
-
-    fetch('data/avaliacoes.json')
-        .then(response => response.json())
-        .then(data => {
-            data.avaliacoes.push(avaliacao);
-            return fetch('data/avaliacoes.json', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            });
-        })
-        .then(() => {
-            alert('Avaliação salva com sucesso!');
-            voltarInicio();
-        })
-        .catch(error => console.error('Erro ao salvar a avaliação:', error));
-}
+    // Inicializa a página carregando os sabores
+    carregarSabores();
+    atualizarCarrinho();
+});

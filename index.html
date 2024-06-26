@@ -3,101 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Pedidos</title>
+    <title>Pasteis do 1° SI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Sistema de Pedidos</h1>
+        <h1>Bem-vindo ao Pasteis do 1° SI</h1>
     </header>
     <main>
-        <!-- Página Inicial -->
-        <div id="paginaInicial" class="acesso">
-            <h2>Bem-vindo!</h2>
-            <button class="btn" onclick="mostrarAcessoCliente()">Acesso Cliente</button>
-            <button class="btn" onclick="mostrarAcessoFuncionario()">Acesso Funcionário</button>
-        </div>
-
-        <!-- Acesso do Cliente -->
-        <div id="acessoCliente" class="hidden">
-            <h2>Bem-vindo Cliente!</h2>
-            <input type="text" id="clienteNome" placeholder="Digite seu nome" class="input" required>
-            <button class="btn" onclick="acessarCliente()">Realizar Pedido</button>
-            <button class="btn" onclick="voltarInicio()">Voltar</button>
-        </div>
-
-        <!-- Acesso do Funcionário -->
-        <div id="acessoFuncionario" class="hidden">
-            <h2>Acesso Funcionário</h2>
-            <input type="text" id="usuarioNome" placeholder="Nome de Usuário" class="input">
-            <input type="password" id="usuarioSenha" placeholder="Senha" class="input">
-            <button class="btn" onclick="acessarUsuario()">Acessar</button>
-            <button class="btn" onclick="revogarAcesso()">Voltar</button>
-        </div>
-
-        <!-- Painel do Cliente -->
-        <div id="pedidoCliente" class="hidden">
-            <h2>Escolha seus Sabores</h2>
-            <div id="sabores" class="sabores">
-                <!-- Os sabores serão carregados aqui -->
-            </div>
-            <div id="carrinho" class="carrinho">
-                <!-- O carrinho de compras será atualizado aqui -->
-            </div>
-            <button class="btn" onclick="voltarInicio()">Voltar</button>
-        </div>
-
-        <!-- Resumo do Pedido -->
-        <div id="resumoPedido" class="hidden">
-            <h2>Resumo do Pedido</h2>
-            <p id="resumoPedidoNumero"></p>
-            <p id="resumoPedidoValor"></p>
-            <p>Deseja deixar uma avaliação?</p>
-            <button class="btn" onclick="confirmarAvaliacao(true)">Sim</button>
-            <button class="btn" onclick="confirmarAvaliacao(false)">Não</button>
-        </div>
-
-        <!-- Avaliação do Pedido -->
-        <div id="avaliarPedido" class="hidden">
-            <h2>Avalie seu Pedido</h2>
-            <form onsubmit="salvarAvaliacao(); return false;">
-                <label>Nota:
-                    <input type="radio" name="notaAvaliacao" value="1"> 1
-                    <input type="radio" name="notaAvaliacao" value="2"> 2
-                    <input type="radio" name="notaAvaliacao" value="3"> 3
-                    <input type="radio" name="notaAvaliacao" value="4"> 4
-                    <input type="radio" name="notaAvaliacao" value="5"> 5
-                </label>
-                <textarea id="comentarioAvaliacao" placeholder="Deixe seu comentário (opcional)" maxlength="100"></textarea>
-                <button class="btn" type="submit">Enviar Avaliação</button>
-            </form>
-        </div>
-
-        <!-- Painel do Administrador -->
-        <div id="painelAdmin" class="hidden">
-            <h2>Painel Administrativo</h2>
-            <button class="btn" onclick="gerenciarSabores()">Gerenciar Sabores</button>
-            <button class="btn" onclick="gerenciarUsuarios()">Gerenciar Usuários</button>
-            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
-            <button class="btn" onclick="visualizarAvaliacoes()">Visualizar Avaliações</button>
-            <button class="btn" onclick="revogarAcesso()">Sair</button>
-        </div>
-
-        <!-- Painel do Funcionário -->
-        <div id="painelUsuario" class="hidden">
-            <h2>Painel do Funcionário</h2>
-            <button class="btn" onclick="visualizarFilaPedidos()">Visualizar Fila de Pedidos</button>
-            <button class="btn" onclick="revogarAcesso()">Sair</button>
+        <h2>Escolha seu acesso</h2>
+        <div class="acesso">
+            <!-- Botões de acesso para clientes e funcionários -->
+            <button class="btn" onclick="window.location.href='./Pages/cliente.html'">Acesso Cliente</button>
+            <button class="btn" onclick="window.location.href='./Pages/funcionario.html'">Acesso Funcionário</button>
         </div>
     </main>
     <footer>
-        <p>© 2024 Sistema de Pedidos. Todos os direitos reservados.</p>
+        <p>&copy; 2024 Pasteis do 1° SI</p>
     </footer>
-
-    <!-- Incluindo scripts modularizados -->
-    <script src="scripts/scriptAcesso.js"></script>
-    <script src="scripts/scriptPedidos.js"></script>
-    <script src="scripts/scriptJson.js"></script>
-    <script src="scripts/scriptPrincipal.js"></script>
 </body>
 </html>

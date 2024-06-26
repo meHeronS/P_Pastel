@@ -1,15 +1,226 @@
-{
-    "pedidos": [
-        {
-            "data": "2024-05-22",
-            "cliente": "João",
-            "numeroPedido": 123456789,
-            "produtos": [
-                { "nome": "Queijo", "preco": 5.0, "quantidade": 2 }
-            ],
-            "formaPagamento": "Pendente",
-            "valor": 10.0,
-            "finalizado": false
-        }
-    ]
-}
+[
+  {
+    "id": 1,
+    "cliente": "Cliente 1",
+    "itens": [
+      {
+        "sabor": "Carne",
+        "quantidade": 2,
+        "preco": 5
+      },
+      {
+        "sabor": "Queijo",
+        "quantidade": 1,
+        "preco": 4
+      }
+    ],
+    "total": 14,
+    "status": "aberto"
+  },
+  {
+    "id": 2,
+    "cliente": "Cliente 2",
+    "itens": [
+      {
+        "sabor": "Frango",
+        "quantidade": 3,
+        "preco": 6
+      }
+    ],
+    "total": 18,
+    "status": "aberto"
+  },
+  {
+    "id": 3,
+    "cliente": "Cliente 3",
+    "itens": [
+      {
+        "sabor": "Calabresa",
+        "quantidade": 1,
+        "preco": 7
+      }
+    ],
+    "total": 7,
+    "status": "aberto"
+  },
+  {
+    "nomeCliente": "Heron",
+    "itens": [
+      {
+        "sabor": "Carne",
+        "preco": 5,
+        "quantidade": 2
+      },
+      {
+        "sabor": "Queijo",
+        "preco": 4.5,
+        "quantidade": 2
+      }
+    ],
+    "total": 19
+  },
+  {
+    "nomeCliente": "Heron",
+    "itens": [
+      {
+        "sabor": "Carne",
+        "preco": 5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Queijo",
+        "preco": 4.5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Frango",
+        "preco": 5.5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Pizza",
+        "preco": 6,
+        "quantidade": 1
+      }
+    ],
+    "total": 21
+  },
+  {
+    "nomeCliente": "Heron",
+    "itens": [
+      {
+        "sabor": "Carne",
+        "preco": 5,
+        "quantidade": 3
+      }
+    ],
+    "total": 15
+  },
+  {
+    "nomeCliente": "Heron",
+    "itens": [
+      {
+        "sabor": "Carne Louca",
+        "preco": 6.5,
+        "quantidade": 3
+      }
+    ],
+    "total": 19.5
+  },
+  {
+    "nomeCliente": "heron",
+    "itens": [
+      {
+        "sabor": "Carne",
+        "preco": 5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Queijo",
+        "preco": 4.5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Pizza",
+        "preco": 6,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Frango",
+        "preco": 5.5,
+        "quantidade": 1
+      }
+    ],
+    "total": 21
+  },
+  {
+    "nomeCliente": "heron",
+    "itens": [
+      {
+        "sabor": "Carne",
+        "preco": 5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Queijo",
+        "preco": 4.5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Frango",
+        "preco": 5.5,
+        "quantidade": 1
+      }
+    ],
+    "total": 15
+  },
+  {
+    "nomeCliente": "Heron",
+    "itens": [
+      {
+        "sabor": "Carne",
+        "preco": 5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Queijo",
+        "preco": 4.5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Frango",
+        "preco": 5.5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Pizza",
+        "preco": 6,
+        "quantidade": 1
+      }
+    ],
+    "total": 21
+  },
+  {
+    "nomeCliente": "heron",
+    "itens": [
+      {
+        "sabor": "Carne Louca",
+        "preco": 6.5,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Azeitona",
+        "preco": 4,
+        "quantidade": 1
+      },
+      {
+        "sabor": "Cogumelos",
+        "preco": 7.5,
+        "quantidade": 1
+      }
+    ],
+    "total": 18
+  },
+  {
+    "nomeCliente": "heron",
+    "itens": [
+      {
+        "sabor": "Carne Louca",
+        "preco": 6.5,
+        "quantidade": 2
+      }
+    ],
+    "total": 13
+  },
+  {
+    "nomeCliente": "heron",
+    "itens": [
+      {
+        "sabor": "Carne Louca",
+        "preco": 6.5,
+        "quantidade": 3
+      }
+    ],
+    "total": 19.5
+  }
+]
